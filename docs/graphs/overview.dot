@@ -1,0 +1,11 @@
+digraph overview {
+  graph [
+    rankdir=RL
+  ]
+  node [
+    shape=rect
+  ]
+
+  timekeeper -> main;
+  mapgenerator -> main;
+}

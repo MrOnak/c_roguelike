@@ -1,0 +1,12 @@
+digraph objects {
+  graph [
+    rankdir=RL
+  ]
+
+  thing -> gameobject;
+  life -> gameobject;
+  player -> life;
+  critter -> life;
+  animal -> life;
+  sentient -> life;
+}
