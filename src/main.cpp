@@ -39,10 +39,15 @@ int main(int argc, char *argv[]) {
   // start game loop
   attron(COLOR_PAIR(1));
 
+  tc.draw();
+
   while (true) {
     // draw (empty) map
     // handle actions of all objects
-    tc.step();
+    tc.update();
+    // draw characters on top of map
+    tc.draw();
+
     refresh();
 
   }

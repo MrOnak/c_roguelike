@@ -6,10 +6,13 @@ Timekeeper::Timekeeper() {
   last = actors;
 }
 
-void Timekeeper::step() {
+void Timekeeper::update() {
   currentTime++;
 
   actors->being->act();
+}
+
+void Timekeeper::draw() {
   clear();
   actors->being->display();
 }

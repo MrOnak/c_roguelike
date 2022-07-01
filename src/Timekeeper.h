@@ -21,7 +21,8 @@ class Timekeeper {
 
   public:
     Timekeeper();
-    void step();
+    void update();
+    void draw();
     long getTime();
     bool registerObject(Life& o);
 };
