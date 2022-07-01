@@ -3,10 +3,10 @@ digraph objects {
     rankdir=RL
   ]
 
-  thing -> gameobject;
-  life -> gameobject;
-  player -> life;
-  critter -> life;
-  animal -> life;
-  sentient -> life;
+  Thing -> GameObject;
+  Life -> GameObject;
+  Player -> Life;
+  Critter -> Life;
+  Animal -> Life;
+  Sentient -> Life;
 }
