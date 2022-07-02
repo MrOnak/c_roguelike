@@ -18,13 +18,16 @@ void MapGenerator::generate(int width, int height) {
 
       if (x == 0 || x == width-1 || y == 0 || y == height-1) {
         walkable = false;
-      }
-
-      if (rand() % 5 == 0) {
+        symbol = '#';
+      } else if (rand() % 8 == 0) {
         symbol = ',';
       }
-      
+
       mapData->defineTile(x, y, walkable, symbol);
     }
   }
+}
+
+MapData* MapGenerator::getMap() {
+  return mapData;
 }

@@ -42,3 +42,11 @@ bool MapData::defineTile(int x, int y, bool walkable, char symbol) {
 
   return retval;
 }
+
+int MapData::getWidth() {
+  return mapWidth;
+}
+
+int MapData::getHeight() {
+  return mapHeight;
+}

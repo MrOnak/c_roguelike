@@ -4,6 +4,9 @@
 
 #include "Timekeeper.h"
 #include "Generator.h"
+#include "Map/MapWindow.h"
+#include "Map/MapGenerator.h"
+#include "Map/MapData.h"
 #include "GameObjects/GameObject.h"
 #include "GameObjects/Life.h"
 #include "GameObjects/Player.h"
@@ -12,17 +15,16 @@
 
 using namespace std;
 
+MapGenerator mapGenerator;
+MapWindow *mapWindow;
 Timekeeper chronos;
+
 Player player(40, 12);
 Mouse mouse(35, 12);
 Mouse mouse2(35, 12);
 Frog frog(35, 15);
 
-int main(int argc, char *argv[]) {
-  // general initialization
-  srand(time(NULL));
-
-  // ncurses initialization
+void initNCurses() {
   initscr();
   cbreak();
   noecho();
@@ -37,23 +39,39 @@ int main(int argc, char *argv[]) {
   init_pair(1, COLOR_WHITE, COLOR_BLACK);
   init_pair(2, COLOR_GREEN, COLOR_GREEN);
   init_pair(3, COLOR_WHITE, COLOR_WHITE);
+}
 
+void initGameEnvironment() {
   // create map
+  mapWindow = new MapWindow(0, 0, 80, 22);
+  mapGenerator.generate(100, 100);
+  mapWindow->assignMap(mapGenerator.getMap());
+
   // initialize and register all GameObjects
   chronos.registerObject(mouse);
   chronos.registerObject(mouse2);
   chronos.registerObject(frog);
   chronos.registerObject(player);
+}
+
+int main(int argc, char *argv[]) {
+  // general initialization
+  srand(time(NULL));
+
+  initNCurses();
+  initGameEnvironment();
 
   // start game loop
   attron(COLOR_PAIR(1));
 
   while (true) {
     // draw (empty) map
-    // handle actions of all actors, also draws them
-    chronos.update();
+    mapWindow->draw();
 
-    refresh();
+    // handle actions of all actors, also draws them
+    //chronos.update();
+
+    //refresh();
   }
 
   attroff(COLOR_PAIR(1));

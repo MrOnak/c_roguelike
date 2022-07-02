@@ -1,6 +1,8 @@
 /**
  * Stores all information for a generated map and provides utility functions
  */
+#ifndef MAPDATA_H
+#define MAPDATA_H
 
 typedef struct maptile {
  bool walkable;
@@ -20,4 +22,8 @@ class MapData {
     bool isWalkable(int x, int y);
     char getSymbol(int x, int y);
     bool defineTile(int x, int y, bool walkable, char symbol);
+    int getWidth();
+    int getHeight();
 };
+
+#endif

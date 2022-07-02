@@ -1,6 +1,9 @@
 /**
  * Map generation factory
  */
+#ifndef MAPGENERATOR_H
+#define MAPGENERATOR_H
+
 #include <stdlib.h>
 
 #include "MapData.h"
@@ -14,4 +17,7 @@ class MapGenerator {
   public:
     MapGenerator();
     void generate(int width, int height);
+    MapData* getMap();
 };
+
+#endif
