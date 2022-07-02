@@ -3,7 +3,7 @@
 
 #include <curses.h>
 
-#include "Generator.h"
+#include "../Generator.h"
 
 struct position {
   int x;

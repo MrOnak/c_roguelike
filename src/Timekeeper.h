@@ -6,7 +6,7 @@
 #include <typeinfo>
 
 #include "Generator.h"
-#include "Life.h"
+#include "GameObjects/Life.h"
 
 typedef struct living_beings {
   Life * being;

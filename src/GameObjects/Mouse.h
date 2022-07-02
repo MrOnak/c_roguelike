@@ -1,15 +1,16 @@
-#ifndef FROG_H
-#define FROG_H
+#ifndef MOUSE_H
+#define MOUSE_H
 
-#include "Life.h"
 #include <curses.h>
 #include <stdlib.h>
 
-class Frog : public Life {
+#include "Life.h"
+
+class Mouse : public Life {
   private:
 
   public:
-    Frog(int x, int y);
+    Mouse(int x, int y);
     void act(); // inherited as pure virtual function from Life
 };
 

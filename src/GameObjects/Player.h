@@ -1,14 +1,15 @@
-#ifndef CRITTER_H
-#define CRITTER_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
-#include "Life.h"
 #include <curses.h>
 
-class Critter : public Life {
+#include "Life.h"
+
+class Player : public Life {
   private:
 
   public:
-    Critter(int x, int y);
+    Player(int x, int y);
     void act(); // inherited as pure virtual function from Life
 };
 

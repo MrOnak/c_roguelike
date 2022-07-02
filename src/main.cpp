@@ -4,11 +4,11 @@
 
 #include "Timekeeper.h"
 #include "Generator.h"
-#include "GameObject.h"
-#include "Life.h"
-#include "Player.h"
-#include "Mouse.h"
-#include "Frog.h"
+#include "GameObjects/GameObject.h"
+#include "GameObjects/Life.h"
+#include "GameObjects/Player.h"
+#include "GameObjects/Mouse.h"
+#include "GameObjects/Frog.h"
 
 using namespace std;
 
