@@ -1,9 +1,7 @@
 #ifndef TIMEKEEPER_H
 #define TIMEKEEPER_H
 
-#include <stdlib.h>
 #include <unistd.h>
-#include <typeinfo>
 
 #include "Generator.h"
 #include "GameObjects/Life.h"

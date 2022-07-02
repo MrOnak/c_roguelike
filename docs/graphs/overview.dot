@@ -1,4 +1,4 @@
-digraph overview {
+graph overview {
   graph [
     rankdir=RL
   ]
@@ -6,6 +6,9 @@ digraph overview {
     shape=rect
   ]
 
-  timekeeper -> main;
-  mapgenerator -> main;
+  Timekeeper -- main;
+  MapGenerator -- main;
+  MapWindow -- main;
+  MapData -- MapGenerator [label=generated];
+  MapData -- MapWindow [label=uses];
 }

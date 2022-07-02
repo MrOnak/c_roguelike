@@ -1,3 +1,6 @@
 build.sh
 roguelike
 docs/graphs/*.png
+
+tests/structs
+tests/mapgenerator
