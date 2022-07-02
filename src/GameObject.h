@@ -3,6 +3,8 @@
 
 #include <curses.h>
 
+#include "Generator.h"
+
 struct position {
   int x;
   int y;
@@ -12,14 +14,15 @@ class GameObject {
   private:
 
   protected:
-    struct position pos;
+    position pos;
 
   public:
+    long id;
     char symbol;
 
     GameObject(int x, int y);
     void display();
-    struct position getPos();
+    position getPos();
 };
 
 #endif

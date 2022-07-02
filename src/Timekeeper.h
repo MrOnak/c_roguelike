@@ -2,22 +2,25 @@
 #define TIMEKEEPER_H
 
 #include <stdlib.h>
+#include <unistd.h>
+#include <typeinfo>
 
+#include "Generator.h"
 #include "Life.h"
 
-
-struct living_beings {
+typedef struct living_beings {
   Life * being;
   struct living_beings * next;
   struct living_beings * prev;
-};
+} living_beings_t;
 
 
 class Timekeeper {
   private:
     long currentTime;
-    living_beings * actors;
-    living_beings * last;
+    float delayBetweenActors;
+    living_beings_t * actors = NULL;
+    living_beings_t * last = NULL;
 
   public:
     Timekeeper();

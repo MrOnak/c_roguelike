@@ -1,21 +1,27 @@
 #include <iostream>
+#include <time.h>
 #include <curses.h>
 
 #include "Timekeeper.h"
+#include "Generator.h"
 #include "GameObject.h"
 #include "Life.h"
 #include "Player.h"
+#include "Mouse.h"
+#include "Frog.h"
 
 using namespace std;
 
-Timekeeper tc;
+Timekeeper chronos;
 Player player(40, 12);
-
-const int WIDTH = 80;
-const int HEIGHT = 24;
-
+Mouse mouse(35, 12);
+Mouse mouse2(35, 12);
+Frog frog(35, 15);
 
 int main(int argc, char *argv[]) {
+  // general initialization
+  srand(time(NULL));
+
   // ncurses initialization
   initscr();
   cbreak();
@@ -34,22 +40,24 @@ int main(int argc, char *argv[]) {
 
   // create map
   // initialize and register all GameObjects
-  tc.registerObject(player);
+  chronos.registerObject(mouse);
+  chronos.registerObject(mouse2);
+  chronos.registerObject(frog);
+  chronos.registerObject(player);
 
   // start game loop
   attron(COLOR_PAIR(1));
 
-  tc.draw();
+  chronos.draw();
 
   while (true) {
     // draw (empty) map
     // handle actions of all objects
-    tc.update();
+    chronos.update();
     // draw characters on top of map
-    tc.draw();
+    chronos.draw();
 
     refresh();
-
   }
 
   attroff(COLOR_PAIR(1));

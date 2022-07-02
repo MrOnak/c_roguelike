@@ -1,6 +1,7 @@
 #include "GameObject.h"
 
 GameObject::GameObject(int x, int y) {
+  id = Generator::getId();
   pos.x = x;
   pos.y = y;
 
@@ -11,6 +12,6 @@ void GameObject::display() {
   mvaddch(pos.y, pos.x, symbol);
 }
 
-struct position GameObject::getPos() {
+position GameObject::getPos() {
   return pos;
 }

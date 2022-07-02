@@ -9,4 +9,6 @@ digraph objects {
   Critter -> Life;
   Animal -> Life;
   Sentient -> Life;
+  Mouse -> Critter;
+  Frog->Critter;
 }
