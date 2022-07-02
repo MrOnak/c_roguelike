@@ -2,18 +2,25 @@
 
 Timekeeper::Timekeeper() {
   currentTime = 0;
-  delayBetweenActors = 0.1;
+  delayBetweenActors = 100000;
 
   actors = (living_beings_t *) malloc(sizeof(living_beings_t));
   last = actors;
 }
 
+/**
+ * calls act() on current actor and then
+ * triggers a re-draw of all actors. This gives
+ * a nice step-by-step look and feel
+ */
 void Timekeeper::update() {
   living_beings_t * current = actors;
   currentTime++;
 
   do {
     current->being->act();
+    draw();
+
     current = current->next;
   } while(current->next != NULL);
 }
@@ -25,22 +32,13 @@ void Timekeeper::draw() {
   int i = 0;
 
   do {
-    /*
-    mvprintw(0, 0, "%d", i);
-    mvprintw(0, 10, "%ld %c %d/%d",
-      current->being->id,
-      current->being->symbol,
-      current->being->getPos().x, current->being->getPos().y
-    );
-    */
-
     current->being->display();
     current = current->next;
-
-    refresh();
-    sleep(delayBetweenActors);
     i++;
   } while(current->next != NULL);
+
+  refresh();
+  usleep(delayBetweenActors);
 }
 
 long Timekeeper::getTime() {

@@ -18,14 +18,14 @@ typedef struct living_beings {
 class Timekeeper {
   private:
     long currentTime;
-    float delayBetweenActors;
+    int delayBetweenActors; // in milliseconds
     living_beings_t * actors = NULL;
     living_beings_t * last = NULL;
+    void draw();
 
   public:
     Timekeeper();
     void update();
-    void draw();
     long getTime();
     bool registerObject(Life& o);
 };

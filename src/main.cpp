@@ -48,14 +48,10 @@ int main(int argc, char *argv[]) {
   // start game loop
   attron(COLOR_PAIR(1));
 
-  chronos.draw();
-
   while (true) {
     // draw (empty) map
-    // handle actions of all objects
+    // handle actions of all actors, also draws them
     chronos.update();
-    // draw characters on top of map
-    chronos.draw();
 
     refresh();
   }
