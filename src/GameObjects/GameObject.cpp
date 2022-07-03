@@ -15,3 +15,7 @@ void GameObject::display() {
 position GameObject::getPos() {
   return pos;
 }
+
+char GameObject::getSymbol() {
+  return symbol;
+}

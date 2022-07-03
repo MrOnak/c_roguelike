@@ -15,14 +15,15 @@ class GameObject {
 
   protected:
     position pos;
+    char symbol;
 
   public:
     long id;
-    char symbol;
 
     GameObject(int x, int y);
     void display();
     position getPos();
+    char getSymbol();
 };
 
 #endif
