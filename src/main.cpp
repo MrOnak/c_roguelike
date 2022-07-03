@@ -21,10 +21,10 @@ MapGenerator mapGenerator;
 MapWindow *mapWindow;
 Timekeeper chronos;
 
-Player player(40, 12);
-Mouse mouse(35, 12);
-Mouse mouse2(35, 12);
-Frog frog(35, 15);
+Player player(10, 5);
+Mouse mouse(15, 5);
+Mouse mouse2(12, 3);
+Frog frog(10, 7);
 
 void initNCurses() {
   initscr();
@@ -49,8 +49,7 @@ void initGameEnvironment() {
   mapInterface.injectMapWindow(mapWindow);
   mapInterface.injectMapGenerator(mapGenerator);
   // generate and distribute map data
-  mapGenerator.generate(100, 100);
-  mapInterface.distributeMap();
+  mapInterface.generateNewMap(60, 20);
 
   // initialize and register all GameObjects
   chronos.registerObject(mouse);

@@ -15,7 +15,7 @@ void MapInterface::injectMapGenerator(MapGenerator &mg) {
   mapGenerator = &mg;
 }
 
-void MapInterface::distributeMap() {
-  MapData* mapData = mapGenerator->getMap();
-  mapWindow->assignMap(mapData);
+void MapInterface::generateNewMap(int width, int height) {
+  mapGenerator->generate(width, height);
+  mapWindow->assignMap(mapGenerator->getMap());
 }
