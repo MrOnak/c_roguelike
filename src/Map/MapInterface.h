@@ -14,7 +14,6 @@ class MapInterface {
     MapGenerator *mapGenerator;
 
   public:
-    MapInterface();
     void injectMapWindow(MapWindow* mw);
     void injectMapGenerator(MapGenerator &mg);
     void generateNewMap(int width, int height);

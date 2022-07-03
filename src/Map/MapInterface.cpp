@@ -3,10 +3,6 @@
  */
 #include "MapInterface.h"
 
-MapInterface::MapInterface() {
-
-}
-
 void MapInterface::injectMapWindow(MapWindow* mw) {
   mapWindow = mw;
 }
