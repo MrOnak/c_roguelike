@@ -19,7 +19,7 @@ using namespace std;
 MapInterface mapInterface;
 MapGenerator mapGenerator;
 MapWindow *mapWindow;
-Timekeeper chronos;
+Timekeeper timekeeper;
 
 Player player(10, 5);
 Mouse mouse(15, 5);
@@ -44,18 +44,18 @@ void initNCurses() {
 }
 
 void initGameEnvironment() {
-  mapWindow = new MapWindow(0, 0, 80, 22);
+  mapWindow = new MapWindow(0, 0, 62, 22);
   // inject everything into map interface
   mapInterface.injectMapWindow(mapWindow);
   mapInterface.injectMapGenerator(mapGenerator);
   // generate and distribute map data
-  mapInterface.generateNewMap(60, 20);
+  mapInterface.generateNewMap(50, 17);
 
   // initialize and register all GameObjects
-  chronos.registerObject(mouse);
-  chronos.registerObject(mouse2);
-  chronos.registerObject(frog);
-  chronos.registerObject(player);
+  timekeeper.registerObject(mouse);
+  timekeeper.registerObject(mouse2);
+  timekeeper.registerObject(frog);
+  timekeeper.registerObject(player);
 }
 
 int main(int argc, char *argv[]) {
@@ -72,10 +72,14 @@ int main(int argc, char *argv[]) {
     // draw terrain
     mapWindow->draw();
 
+    Life* current = timekeeper.getCurrentObject();
+    current->display();
+    mvprintw(0, 0, "%d/%d %c", current->getPos().x, current->getPos().y, current->getSymbol());
     // handle actions of all actors, also draws them
-    //chronos.update();
+    //timekeeper.update();
 
-    //refresh();
+    //mapWindow->refresh();
+    refresh();
   }
 
   attroff(COLOR_PAIR(1));
