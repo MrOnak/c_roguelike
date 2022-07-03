@@ -4,6 +4,7 @@
 
 #include "Timekeeper.h"
 #include "Generator.h"
+#include "Map/MapInterface.h"
 #include "Map/MapWindow.h"
 #include "Map/MapGenerator.h"
 #include "Map/MapData.h"
@@ -15,6 +16,7 @@
 
 using namespace std;
 
+MapInterface mapInterface;
 MapGenerator mapGenerator;
 MapWindow *mapWindow;
 Timekeeper chronos;
@@ -42,10 +44,13 @@ void initNCurses() {
 }
 
 void initGameEnvironment() {
-  // create map
   mapWindow = new MapWindow(0, 0, 80, 22);
+  // inject everything into map interface
+  mapInterface.injectMapWindow(mapWindow);
+  mapInterface.injectMapGenerator(mapGenerator);
+  // generate and distribute map data
   mapGenerator.generate(100, 100);
-  mapWindow->assignMap(mapGenerator.getMap());
+  mapInterface.distributeMap();
 
   // initialize and register all GameObjects
   chronos.registerObject(mouse);
@@ -65,7 +70,7 @@ int main(int argc, char *argv[]) {
   attron(COLOR_PAIR(1));
 
   while (true) {
-    // draw (empty) map
+    // draw terrain
     mapWindow->draw();
 
     // handle actions of all actors, also draws them

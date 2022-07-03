@@ -12,10 +12,9 @@ using namespace std;
 
 class MapGenerator {
   private:
-    MapData* mapData;
+    MapData *mapData;
 
   public:
-    MapGenerator();
     void generate(int width, int height);
     MapData* getMap();
 };

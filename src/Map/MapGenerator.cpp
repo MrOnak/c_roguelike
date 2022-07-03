@@ -4,8 +4,6 @@
 
 #include "MapGenerator.h"
 
-MapGenerator::MapGenerator() {}
-
 void MapGenerator::generate(int width, int height) {
   mapData = new MapData(width, height);
   bool walkable;

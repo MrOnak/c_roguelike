@@ -22,7 +22,7 @@ class MapWindow {
 
   public:
     MapWindow(int startX, int startY, int width, int height);
-    void assignMap(MapData *md);
+    void assignMap(MapData* md);
     void draw();
 };
 

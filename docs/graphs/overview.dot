@@ -9,6 +9,9 @@ graph overview {
   Timekeeper -- main;
   MapGenerator -- main;
   MapWindow -- main;
+  MapInterface -- main;
   MapData -- MapGenerator [label=generated];
   MapData -- MapWindow [label=uses];
+  MapData -- MapInterface [label=uses];
+  Timekeeper -- MapInterface;
 }
