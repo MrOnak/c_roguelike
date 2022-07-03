@@ -3,12 +3,8 @@
 
 #include <curses.h>
 
+#include "../pos.h"
 #include "../Generator.h"
-
-struct position {
-  int x;
-  int y;
-};
 
 class GameObject {
   private:
