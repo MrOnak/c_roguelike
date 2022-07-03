@@ -9,12 +9,13 @@
 
 using namespace std;
 
+#include "../pos.h"
 #include "MapData.h"
 
 class MapWindow {
   private:
-    int winLeft;
-    int winTop;
+    position winPos;
+    position mapOffset;
     int winWidth;
     int winHeight;
     MapData *mapData;
@@ -24,6 +25,8 @@ class MapWindow {
     MapWindow(int startX, int startY, int width, int height);
     void assignMap(MapData* md);
     void draw();
+    void drawTile(int x, int y);
+    void refresh();
 };
 
 #endif

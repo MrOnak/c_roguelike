@@ -5,12 +5,14 @@
 #include "MapWindow.h"
 
 MapWindow::MapWindow(int startX, int startY, int width, int height) {
-  winLeft = startX;
-  winTop = startY;
+  winPos.x = startX;
+  winPos.y = startY;
+  mapOffset.x = 1;
+  mapOffset.y = 1;
   winWidth = width;
   winHeight = height;
 
-  mapWin = newwin(winHeight, winWidth, winTop, winLeft);
+  mapWin = newwin(winHeight, winWidth, winPos.y, winPos.x);
   box(mapWin, 0, 0);
   wborder(mapWin, '|', '|', '-', '-', '+', '+', '+', '+');
   wrefresh(mapWin);
@@ -27,9 +29,17 @@ void MapWindow::draw() {
 
   for (x = 0; x < width; x++) {
     for (y = 0; y < height; y++) {
-      mvwaddch(mapWin, y+1, x+1, mapData->getSymbol(x, y));
+      drawTile(x, y);
     }
   }
 
+  refresh();
+}
+
+void MapWindow::drawTile(int x, int y) {
+  mvwaddch(mapWin, y + mapOffset.y, x + mapOffset.x, mapData->getSymbol(x, y));
+}
+
+void MapWindow::refresh() {
   wrefresh(mapWin);
 }
