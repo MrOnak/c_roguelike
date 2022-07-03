@@ -55,7 +55,7 @@ void initGameEnvironment() {
   timekeeper.registerObject(mouse);
   timekeeper.registerObject(mouse2);
   timekeeper.registerObject(frog);
-  timekeeper.registerObject(player);
+  timekeeper.registerPlayer(player);
 }
 
 int main(int argc, char *argv[]) {

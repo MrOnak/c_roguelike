@@ -46,6 +46,13 @@ long Timekeeper::getTime() {
   return currentTime;
 }
 
+bool Timekeeper::registerPlayer(Player& p) {
+  player = &p;
+  registerObject(p);
+
+  return true;
+}
+
 bool Timekeeper::registerObject(Life& o) {
   last->being = &o;
   // create next slot in the linked list and link it

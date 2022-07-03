@@ -5,6 +5,7 @@
 
 #include "Generator.h"
 #include "GameObjects/Life.h"
+#include "GameObjects/Player.h"
 
 typedef struct living_beings {
   Life * being;
@@ -20,12 +21,14 @@ class Timekeeper {
     living_beings_t * actors = NULL;
     living_beings_t * last = NULL;
     living_beings_t * current = NULL;
+    Player * player;
     void draw();
 
   public:
     Timekeeper();
     void update();
     long getTime();
+    bool registerPlayer(Player& p);
     bool registerObject(Life& o);
     Life* getCurrentObject();
 };
