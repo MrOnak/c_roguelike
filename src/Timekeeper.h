@@ -19,6 +19,7 @@ class Timekeeper {
     int delayBetweenActors; // in milliseconds
     living_beings_t * actors = NULL;
     living_beings_t * last = NULL;
+    living_beings_t * current = NULL;
     void draw();
 
   public:
@@ -26,6 +27,7 @@ class Timekeeper {
     void update();
     long getTime();
     bool registerObject(Life& o);
+    Life* getCurrentObject();
 };
 
 #endif

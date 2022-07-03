@@ -6,6 +6,7 @@ Timekeeper::Timekeeper() {
 
   actors = (living_beings_t *) malloc(sizeof(living_beings_t));
   last = actors;
+  current = actors;
 }
 
 /**
@@ -14,7 +15,7 @@ Timekeeper::Timekeeper() {
  * a nice step-by-step look and feel
  */
 void Timekeeper::update() {
-  living_beings_t * current = actors;
+  current = actors;
   currentTime++;
 
   do {
@@ -26,16 +27,16 @@ void Timekeeper::update() {
 }
 
 void Timekeeper::draw() {
-  living_beings_t * current = actors;
+  living_beings_t * drawcurrent = actors;
 
   clear();
   int i = 0;
 
   do {
-    current->being->display();
-    current = current->next;
+    drawcurrent->being->display();
+    drawcurrent = drawcurrent->next;
     i++;
-  } while(current->next != NULL);
+  } while(drawcurrent->next != NULL);
 
   refresh();
   usleep(delayBetweenActors);
@@ -55,4 +56,8 @@ bool Timekeeper::registerObject(Life& o) {
   last = last->next;
 
   return true;
+}
+
+Life* Timekeeper::getCurrentObject() {
+  return current->being;
 }
