@@ -15,7 +15,7 @@ MapWindow::MapWindow(int startX, int startY, int width, int height) {
   mapWin = newwin(winHeight, winWidth, winPos.y, winPos.x);
   box(mapWin, 0, 0);
   wborder(mapWin, '|', '|', '-', '-', '+', '+', '+', '+');
-  wrefresh(mapWin);
+  refresh();
 }
 
 void MapWindow::assignMap(MapData* md) {
