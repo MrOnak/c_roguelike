@@ -3,7 +3,7 @@
 
 #include <curses.h>
 
-#include "../pos.h"
+#include "../structs.h"
 #include "../Generator.h"
 
 class GameObject {
