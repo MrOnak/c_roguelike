@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#include "../structs.h"
+#include "../pos.h"
 #include "MapData.h"
 
 class MapWindow {

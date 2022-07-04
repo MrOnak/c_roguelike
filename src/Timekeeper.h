@@ -4,15 +4,8 @@
 #include <unistd.h>
 
 #include "Generator.h"
-#include "GameObjects/Life.h"
 #include "GameObjects/Player.h"
-
-typedef struct living_beings {
-  Life * being;
-  struct living_beings * next;
-  struct living_beings * prev;
-} living_beings_t;
-
+#include "living_beings_t.h"
 
 class Timekeeper {
   private:
