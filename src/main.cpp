@@ -9,10 +9,10 @@
 #include "Map/MapGenerator.h"
 #include "Map/MapData.h"
 #include "GameObjects/GameObject.h"
-#include "GameObjects/Life.h"
-#include "GameObjects/Player.h"
-#include "GameObjects/Mouse.h"
-#include "GameObjects/Frog.h"
+#include "GameObjects/Life/Life.h"
+#include "GameObjects/Life/Player.h"
+#include "GameObjects/Life/Critter/Mouse.h"
+#include "GameObjects/Life/Critter/Frog.h"
 
 using namespace std;
 

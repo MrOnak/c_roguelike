@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 #include "Generator.h"
-#include "GameObjects/Player.h"
+#include "GameObjects/Life/Player.h"
 #include "living_beings_t.h"
 
 class Timekeeper {

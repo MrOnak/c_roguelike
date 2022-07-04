@@ -1,7 +1,7 @@
 #ifndef LIVING_BEINGS_H
 #define LIVING_BEINGS_H
 
-#include "GameObjects/Life.h"
+#include "GameObjects/Life/Life.h"
 
 typedef struct living_beings {
   Life * being;

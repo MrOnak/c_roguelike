@@ -1,7 +1,7 @@
 #ifndef LIFE_H
 #define LIFE_H
 
-#include "GameObject.h"
+#include "../GameObject.h"
 
 class Life : public GameObject {
   private:

@@ -4,7 +4,7 @@
 #include <curses.h>
 #include <stdlib.h>
 
-#include "Life.h"
+#include "../Life.h"
 
 class Frog : public Life {
   private:

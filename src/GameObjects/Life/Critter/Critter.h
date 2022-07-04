@@ -3,7 +3,7 @@
 
 #include <curses.h>
 
-#include "Life.h"
+#include "../Life.h"
 
 class Critter : public Life {
   private:
