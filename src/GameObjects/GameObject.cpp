@@ -19,3 +19,7 @@ position GameObject::getPos() {
 char GameObject::getSymbol() {
   return symbol;
 }
+
+long GameObject::getId() {
+  return id;
+}

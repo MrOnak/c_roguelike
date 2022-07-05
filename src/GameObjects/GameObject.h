@@ -20,6 +20,7 @@ class GameObject {
     void display();
     position getPos();
     char getSymbol();
+    long getId();
 };
 
 #endif
