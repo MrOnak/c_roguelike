@@ -19,7 +19,7 @@ class MapData {
     maptile_t **map;
     living_beings_t * actors = NULL;
     living_beings_t * last = NULL;
-    Player * player;
+    Player* player;
 
     void initMap();
 
@@ -30,8 +30,10 @@ class MapData {
     bool defineTile(int x, int y, bool walkable, char symbol);
     int getWidth();
     int getHeight();
-    bool registerPlayer(Player& p);
+    bool registerPlayer(Player* p);
     bool registerObject(Life& o);
+    Player* getPlayer();
+    living_beings_t* getLife();
 };
 
 #endif

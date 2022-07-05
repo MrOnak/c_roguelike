@@ -41,13 +41,14 @@ void MapGenerator::generateThings() {
 }
 
 void MapGenerator::generateLife() {
-  Player player(10, 5);
-  Mouse mouse(15, 5);
-  Mouse mouse2(12, 3);
-  Frog frog(10, 7);
-
-  mapData->registerObject(mouse);
-  mapData->registerObject(mouse2);
-  mapData->registerObject(frog);
+  Player* player = new Player(1, 5);
   mapData->registerPlayer(player);
+
+  Mouse* mouse = new Mouse(15, 5);
+  Mouse* mouse2 = new Mouse(12, 3);
+  Frog* frog = new Frog(10, 7);
+
+  mapData->registerObject(*mouse);
+  mapData->registerObject(*mouse2);
+  mapData->registerObject(*frog);
 }

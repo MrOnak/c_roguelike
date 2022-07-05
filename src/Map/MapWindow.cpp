@@ -7,8 +7,12 @@
 MapWindow::MapWindow(int startX, int startY, int width, int height) {
   winPos.x = startX;
   winPos.y = startY;
-  mapOffset.x = 1;
-  mapOffset.y = 1;
+  // set offset of the drawable part of the map window to the top-left edge of the border
+  winMapOffset.x = 1;
+  winMapOffset.y = 1;
+  // defines the top-left x/y coordinates of MapData tileset we're actually going to draw
+  visMapOffset.x = 0;
+  visMapOffset.y = 0;
   winWidth = width;
   winHeight = height;
 
@@ -23,6 +27,40 @@ void MapWindow::assignMap(MapData* md) {
 }
 
 void MapWindow::draw() {
+  calculateVisMapOffset();
+  drawVisibleTerrain();
+  drawThings();
+  drawLife();
+
+  refresh();
+}
+
+void MapWindow::drawTile(int x, int y) {
+  mvwaddch(mapWin,
+    y + winMapOffset.y + visMapOffset.y,
+    x + winMapOffset.x + visMapOffset.x,
+    mapData->getSymbol(x, y));
+}
+
+void MapWindow::refresh() {
+  wrefresh(mapWin);
+}
+
+void MapWindow::calculateVisMapOffset() {
+  Player* player = mapData->getPlayer();
+  position playerPos = player->getPos();
+  
+  // to be implemented
+}
+
+bool MapWindow::isVisible(position pos) {
+  return (
+    pos.x >= visMapOffset.x && pos.x < visMapOffset.x + winWidth
+    && pos.y >= visMapOffset.y && pos.y < visMapOffset.y + winHeight
+  );
+}
+
+void MapWindow::drawVisibleTerrain() {
   int x, y;
   int width = min(winWidth - 2, mapData->getWidth());
   int height = min(winHeight - 2, mapData->getHeight());
@@ -32,14 +70,27 @@ void MapWindow::draw() {
       drawTile(x, y);
     }
   }
-
-  refresh();
 }
 
-void MapWindow::drawTile(int x, int y) {
-  mvwaddch(mapWin, y + mapOffset.y, x + mapOffset.x, mapData->getSymbol(x, y));
+void MapWindow::drawThings() {
+
 }
 
-void MapWindow::refresh() {
-  wrefresh(mapWin);
+void MapWindow::drawLife() {
+  living_beings_t* current = mapData->getLife();
+  position pos;
+  /* iterate over all creatures and draw them on top of the map
+     if they are on the visible part of the map */
+  do {
+    pos = current->being->getPos();
+
+    if (isVisible(pos)) {
+      mvwaddch(mapWin,
+        pos.y + winMapOffset.y + visMapOffset.y,
+        pos.x + winMapOffset.x + visMapOffset.x,
+        current->being->getSymbol());
+    }
+
+    current = current->next;
+  } while (current->next != NULL);
 }

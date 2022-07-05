@@ -5,3 +5,4 @@ docs/graphs/*.png
 tests/*.sh
 tests/structs
 tests/mapgenerator
+tests/mapdata

@@ -15,11 +15,17 @@ using namespace std;
 class MapWindow {
   private:
     position winPos;
-    position mapOffset;
+    position winMapOffset;
+    position visMapOffset;
     int winWidth;
     int winHeight;
     MapData *mapData;
     WINDOW *mapWin;
+    void calculateVisMapOffset();
+    bool isVisible(position pos);
+    void drawVisibleTerrain();
+    void drawThings();
+    void drawLife();
 
   public:
     MapWindow(int startX, int startY, int width, int height);

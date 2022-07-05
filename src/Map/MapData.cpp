@@ -54,9 +54,9 @@ int MapData::getHeight() {
   return mapHeight;
 }
 
-bool MapData::registerPlayer(Player& p) {
-  player = &p;
-  registerObject(p);
+bool MapData::registerPlayer(Player* p) {
+  player = p;
+  registerObject(*p);
 
   return true;
 }
@@ -71,4 +71,12 @@ bool MapData::registerObject(Life& o) {
   last = last->next;
 
   return true;
+}
+
+Player* MapData::getPlayer() {
+  return player;
+}
+
+living_beings_t* MapData::getLife() {
+  return actors;
 }
