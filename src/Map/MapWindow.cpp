@@ -5,21 +5,25 @@
 #include "MapWindow.h"
 
 MapWindow::MapWindow(int startX, int startY, int width, int height) {
+  // position of the ncurses window relative to screen top-left
   winPos.x = startX;
   winPos.y = startY;
-  // set offset of the drawable part of the map window to the top-left edge of the border
+  // total size of the ncurses window, including border and padding
+  winSize.x = width;
+  winSize.y = height;
+  // ncurses window border padding
   winMapOffset.x = 1;
   winMapOffset.y = 1;
   // defines the top-left x/y coordinates of MapData tileset we're actually going to draw
   visMapOffset.x = 0;
   visMapOffset.y = 0;
-  winWidth = width;
-  winHeight = height;
 
-  mapWin = newwin(winHeight, winWidth, winPos.y, winPos.x);
+  mapWin = newwin(winSize.y, winSize.x, winPos.y, winPos.x);
   box(mapWin, 0, 0);
   wborder(mapWin, '|', '|', '-', '-', '+', '+', '+', '+');
   refresh();
+
+  MapWindow::calculateUsableSpace();
 }
 
 void MapWindow::assignMap(MapData* md) {
@@ -37,8 +41,8 @@ void MapWindow::draw() {
 
 void MapWindow::drawTile(int x, int y) {
   mvwaddch(mapWin,
-    y + winMapOffset.y + visMapOffset.y,
-    x + winMapOffset.x + visMapOffset.x,
+    y + winMapOffset.y - visMapOffset.y,
+    x + winMapOffset.x - visMapOffset.x,
     mapData->getSymbol(x, y));
 }
 
@@ -47,26 +51,52 @@ void MapWindow::refresh() {
 }
 
 void MapWindow::calculateVisMapOffset() {
-  Player* player = mapData->getPlayer();
-  position playerPos = player->getPos();
-  
-  // to be implemented
+  position playerPos = mapData->getPlayer()->getPos();
+
+  // calculate offset so that player position is in the center of the usable space
+  visMapOffset.x = playerPos.x - usableWinHalfSize.x;
+  visMapOffset.y = playerPos.y - usableWinHalfSize.y;
+  /*
+  mvwprintw(mapWin, 0, 27,
+    " player: %d/%d; visOffset: %d/%d",
+    playerPos.x, playerPos.y, visMapOffset.x, visMapOffset.y);
+    */
 }
 
 bool MapWindow::isVisible(position pos) {
   return (
-    pos.x >= visMapOffset.x && pos.x < visMapOffset.x + winWidth
-    && pos.y >= visMapOffset.y && pos.y < visMapOffset.y + winHeight
+    pos.x >= visMapOffset.x &&
+    pos.x < visMapOffset.x + usableWinSize.x &&
+    pos.y >= visMapOffset.y &&
+    pos.y < visMapOffset.y + usableWinSize.y
   );
+}
+
+void MapWindow::calculateUsableSpace() {
+  usableWinSize.x = winSize.x - 2 * winMapOffset.x;
+  usableWinSize.y = winSize.y - 2 * winMapOffset.y;
+  usableWinHalfSize.x = usableWinSize.x / 2;
+  usableWinHalfSize.y = usableWinSize.y / 2;
+  /*
+  mvwprintw(mapWin, 0, 0,
+    "use: %d/%d; halfUse: %d/%d;",
+    usableWinSize.x, usableWinSize.y,
+    usableWinHalfSize.x, usableWinHalfSize.y
+  );
+  */
 }
 
 void MapWindow::drawVisibleTerrain() {
   int x, y;
-  int width = min(winWidth - 2, mapData->getWidth());
-  int height = min(winHeight - 2, mapData->getHeight());
+  position start, end;
+  start.x = max(0, visMapOffset.x);
+  start.y = max(0, visMapOffset.y);
+  end.x = min(mapData->getWidth(), usableWinSize.x + visMapOffset.x);
+  end.y = min(mapData->getHeight(), usableWinSize.y + visMapOffset.y);
 
-  for (x = 0; x < width; x++) {
-    for (y = 0; y < height; y++) {
+  //mvwprintw(mapWin, 21, 0, "%d/%d -> %d/%d", start.x, start.y, end.x, end.y);
+  for (x = start.x; x < end.x; x++) {
+    for (y = start.y; y < end.y; y++) {
       drawTile(x, y);
     }
   }
@@ -86,8 +116,8 @@ void MapWindow::drawLife() {
 
     if (isVisible(pos)) {
       mvwaddch(mapWin,
-        pos.y + winMapOffset.y + visMapOffset.y,
-        pos.x + winMapOffset.x + visMapOffset.x,
+        pos.y + winMapOffset.y - visMapOffset.y,
+        pos.x + winMapOffset.x - visMapOffset.x,
         current->being->getSymbol());
     }
 

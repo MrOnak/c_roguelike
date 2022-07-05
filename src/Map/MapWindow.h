@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <curses.h>
+#include <math.h>
 
 using namespace std;
 
@@ -17,11 +18,13 @@ class MapWindow {
     position winPos;
     position winMapOffset;
     position visMapOffset;
-    int winWidth;
-    int winHeight;
+    position winSize;
+    position usableWinSize;
+    position usableWinHalfSize;
     MapData *mapData;
     WINDOW *mapWin;
     void calculateVisMapOffset();
+    void calculateUsableSpace();
     bool isVisible(position pos);
     void drawVisibleTerrain();
     void drawThings();
