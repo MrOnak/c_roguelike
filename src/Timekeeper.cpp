@@ -1,70 +1,83 @@
 #include "Timekeeper.h"
 
 Timekeeper::Timekeeper() {
-  currentTime = 0;
-  delayBetweenActors = 100000;
-
-  actors = (living_beings_t *) malloc(sizeof(living_beings_t));
-  last = actors;
-  current = actors;
+  date = 0;
+  time = 0;
 }
 
-/**
- * calls act() on current actor and then
- * triggers a re-draw of all actors. This gives
- * a nice step-by-step look and feel
- */
-void Timekeeper::update() {
-  current = actors;
-  currentTime++;
-
-  do {
-    current->being->act();
-    draw();
-
-    current = current->next;
-  } while(current->next != NULL);
-}
-
-void Timekeeper::draw() {
-  living_beings_t * drawcurrent = actors;
-
-  clear();
-  int i = 0;
-
-  do {
-    drawcurrent->being->display();
-    drawcurrent = drawcurrent->next;
-    i++;
-  } while(drawcurrent->next != NULL);
-
-  refresh();
-  usleep(delayBetweenActors);
-}
 
 long Timekeeper::getTime() {
-  return currentTime;
+  return time;
 }
 
-bool Timekeeper::registerPlayer(Player& p) {
-  player = &p;
-  registerObject(p);
-
-  return true;
+long Timekeeper::getDate() {
+  return date;
 }
 
-bool Timekeeper::registerObject(Life& o) {
-  last->being = &o;
-  // create next slot in the linked list and link it
-  last->next = (living_beings_t *) malloc(sizeof(living_beings_t));
-  last->next->next = NULL;
-  last->next->prev = last;
+void Timekeeper::update() {
+  bool acted = false;
 
-  last = last->next;
+  progressTime();
+  distributeEnergy(1.0f);
 
-  return true;
+  // rewind to beginning of linked list
+  while (current->prev != NULL) {
+    current = current->prev;
+  }
+
+  // trigger actions for all entities
+  do {
+    acted = current->being->act();
+    if (acted) {
+      // re-sort entity based on new energy budget
+      sortEntity(current);
+    } else {
+      // move pointer to act upon next entity
+      current = current->next;
+    }
+  } while (current->next != NULL);
 }
 
-Life* Timekeeper::getCurrentObject() {
-  return current->being;
+void Timekeeper::setActors(living_beings_t* actor) {
+  current = actor;
+}
+
+void Timekeeper::progressTime() {
+  time++;
+  if (time == 86400) {date++;}
+  time = time % 86400;
+}
+
+void Timekeeper::distributeEnergy(float e) {
+  living_beings_t* pos;
+
+  do {
+    // add energy to current entity
+    current->being->addEnergy(e);
+    // re-sort entity based on stored energy
+    sortEntity(current);
+
+    // move pointer to the next entity
+    current = current->next;
+  } while (current->next != NULL);
+}
+
+void Timekeeper::sortEntity(living_beings_t* entity) {
+  living_beings_t* pos = entity;
+
+
+  while (pos->next->being->getEnergy() >= entity->being->getEnergy()
+    && pos->next != NULL) {
+    pos = pos->next;
+  }
+
+  // un-link entity
+  entity->prev->next = entity->next;
+  entity->next->prev = entity->prev;
+
+  // re-insert entity after pos
+  entity->next = pos->next;
+  pos->next = entity;
+  entity->prev = pos;
+  entity->next->prev = entity;
 }

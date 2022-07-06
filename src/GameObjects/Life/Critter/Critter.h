@@ -10,7 +10,6 @@ class Critter : public Life {
 
   public:
     Critter(int x, int y);
-    void act(); // inherited as pure virtual function from Life
 };
 
 #endif

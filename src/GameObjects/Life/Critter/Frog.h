@@ -11,7 +11,7 @@ class Frog : public Life {
 
   public:
     Frog(int x, int y);
-    void act(); // inherited as pure virtual function from Life
+    bool act(); // inherited as pure virtual function from Life
 };
 
 #endif

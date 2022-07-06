@@ -2,25 +2,35 @@
 
 Player::Player(int x, int y) : Life(x, y) {
   symbol = '@';
+  costFactor = 3.0f;
 }
 
-void Player::act() {
+bool Player::act() {
   int c = getch();
+  float cost = 0;
 
   switch(c) {
     case KEY_LEFT:
     case 'a':
       moveBy(-1, 0);
+      cost = calculateCostOfAction(1.0f);
       break;
     case KEY_RIGHT:
     case 'd':
       moveBy(1, 0);
+      cost = calculateCostOfAction(1.0f);
       break;
     case KEY_UP:
-    case 'w':moveBy(0, -1);
+    case 'w':
+      moveBy(0, -1);
+      cost = calculateCostOfAction(1.0f);
       break;
     case KEY_DOWN:
-    case 's':moveBy(0, 1);
+    case 's':
+      moveBy(0, 1);
+      cost = calculateCostOfAction(1.0f);
       break;
   }
+
+  return consumeEnergy(cost);
 }

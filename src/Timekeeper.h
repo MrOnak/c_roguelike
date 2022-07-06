@@ -9,21 +9,20 @@
 
 class Timekeeper {
   private:
-    long currentTime;
-    int delayBetweenActors; // in milliseconds
-    living_beings_t * actors = NULL;
-    living_beings_t * last = NULL;
-    living_beings_t * current = NULL;
-    Player * player;
-    void draw();
+    long date;
+    long time;
+    living_beings_t* current = NULL;
+
+    void distributeEnergy(float e);
+    void sortEntity(living_beings_t* entity);
+    void progressTime();
 
   public:
     Timekeeper();
-    void update();
     long getTime();
-    bool registerPlayer(Player& p);
-    bool registerObject(Life& o);
-    Life* getCurrentObject();
+    long getDate();
+    void update();
+    void setActors(living_beings_t* actor);
 };
 
 #endif

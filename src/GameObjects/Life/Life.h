@@ -5,10 +5,18 @@
 
 class Life : public GameObject {
   private:
+    float energy;
+
+  protected:
+    float costFactor;
+    float calculateCostOfAction(float rawCost);
+    bool consumeEnergy(float e);
 
   public:
     Life(int x, int y);
-    virtual void act() = 0;
+    virtual bool act() = 0;
+    float getEnergy();
+    void addEnergy(float e);
     bool moveBy(int x, int y);
     bool moveTo(int x, int y);
 };
