@@ -15,10 +15,14 @@ using namespace std;
 
 class MapWindow {
   private:
+    // position of the ncurses window relative to screen top-left
     position winPos;
-    position winMapOffset;
-    position visMapOffset;
+    // total size of the ncurses window, including border and padding
     position winSize;
+    // ncurses window border padding
+    position winMapOffset;
+    // defines the top-left x/y coordinates of MapData tileset we're actually going to draw
+    position visMapOffset;
     position usableWinSize;
     position usableWinHalfSize;
     MapData *mapData;
