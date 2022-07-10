@@ -2,7 +2,6 @@
 #define PLAYER_H
 
 #include <curses.h>
-
 #include "Life.h"
 
 class Player : public Life {

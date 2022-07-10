@@ -10,10 +10,10 @@ TEST_DIR = tests/
 all: clean roguelike
 roguelike: lifeforms maphandlers timekeeper.o main.o livingbeings.o
 	$(CC) $(CFLAGS) -o roguelike $(BUILD_DIR)main.o \
-		$(BUILD_DIR)mapdata.o $(BUILD_DIR)mapgenerator.o $(BUILD_DIR)mapinterface.o $(BUILD_DIR)mapwindow.o \
-		$(BUILD_DIR)timekeeper.o \
+		$(BUILD_DIR)gameobject.o $(BUILD_DIR)life.o $(BUILD_DIR)player.o $(BUILD_DIR)mouse.o $(BUILD_DIR)frog.o $(BUILD_DIR)critter.o $(BUILD_DIR)generator.o \
 		$(BUILD_DIR)livingbeings.o \
-		$(BUILD_DIR)player.o $(BUILD_DIR)mouse.o $(BUILD_DIR)frog.o $(BUILD_DIR)critter.o $(BUILD_DIR)life.o $(BUILD_DIR)gameobject.o $(BUILD_DIR)generator.o \
+		$(BUILD_DIR)timekeeper.o \
+		$(BUILD_DIR)mapdata.o $(BUILD_DIR)mapgenerator.o $(BUILD_DIR)mapinterface.o $(BUILD_DIR)mapwindow.o \
 		$(CLIBS)
 main.o:
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)main.o -c $(SRC_DIR)main.cpp
@@ -23,38 +23,38 @@ clean:
 
 # Helpers
 generator.o:
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)generator.o -c $(SRC_DIR)Generator.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Generator.cpp
 timekeeper.o:
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)timekeeper.o -c $(SRC_DIR)Timekeeper.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Timekeeper.cpp
 
 # Structures
 livingbeings.o: life.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)livingbeings.o -c $(SRC_DIR)Structs/LivingBeings.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -o $(BUILD_DIR)life.o -c $(SRC_DIR)Structs/LivingBeings.cpp
 
 # Life-Forms
 lifeforms: generator.o frog.o mouse.o player.o
 
 frog.o: critter.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)frog.o -c $(SRC_DIR)GameObjects/Life/Critter/Frog.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Critter/Frog.cpp
 mouse.o: critter.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)mouse.o -c $(SRC_DIR)GameObjects/Life/Critter/Mouse.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Critter/Mouse.cpp
 critter.o: life.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)critter.o -c $(SRC_DIR)GameObjects/Life/Critter/Critter.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -o $(BUILD_DIR)life.o -c $(SRC_DIR)GameObjects/Life/Critter/Critter.cpp
 player.o: life.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)player.o -c $(SRC_DIR)GameObjects/Life/Player.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Player.cpp
 life.o: gameobject.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)life.o -c $(SRC_DIR)GameObjects/Life/Life.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Life.cpp
 gameobject.o: generator.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)gameobject.o -c $(SRC_DIR)GameObjects/GameObject.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/GameObject.cpp
 
 # Map Handlers
 maphandlers: mapdata.o mapgenerator.o mapinterface.o mapwindow.o
 
-mapdata.o:
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)mapdata.o -c $(SRC_DIR)Map/MapData.cpp
+mapdata.o: livingbeings.o
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Map/MapData.cpp
 mapgenerator.o:
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)mapgenerator.o -c $(SRC_DIR)Map/MapGenerator.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Map/MapGenerator.cpp
 mapinterface.o:
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)mapinterface.o -c $(SRC_DIR)Map/MapInterface.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Map/MapInterface.cpp
 mapwindow.o:
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)mapwindow.o -c $(SRC_DIR)Map/MapWindow.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Map/MapWindow.cpp

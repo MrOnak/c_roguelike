@@ -5,8 +5,9 @@
 #define MAPDATA_H
 
 #include "../Structs/LivingBeings.h"
-#include "../GameObjects/Life/Life.h"
-#include "../GameObjects/Life/Player.h"
+
+class Life;
+class Player;
 
 typedef struct maptile {
   bool walkable;
