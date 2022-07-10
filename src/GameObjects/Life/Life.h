@@ -2,6 +2,7 @@
 #define LIFE_H
 
 #include "../GameObject.h"
+#include "../../Map/MapInterface.h"
 
 class Life : public GameObject {
   private:
@@ -19,6 +20,7 @@ class Life : public GameObject {
     void addEnergy(float e);
     bool moveBy(int x, int y);
     bool moveTo(int x, int y);
+    char* debug();
 };
 
 #endif

@@ -4,12 +4,13 @@
 #ifndef MAPDATA_H
 #define MAPDATA_H
 
-#include "../living_beings_t.h"
+#include "../Structs/LivingBeings.h"
+#include "../GameObjects/Life/Life.h"
 #include "../GameObjects/Life/Player.h"
 
 typedef struct maptile {
- bool walkable;
- char symbol;
+  bool walkable;
+  char symbol;
 } maptile_t;
 
 class MapData {
@@ -18,7 +19,6 @@ class MapData {
     int mapHeight;
     maptile_t **map;
     living_beings_t * actors = NULL;
-    living_beings_t * last = NULL;
     Player* player;
 
     void initMap();

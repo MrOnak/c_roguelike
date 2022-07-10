@@ -9,10 +9,6 @@
 MapData::MapData(int width, int height) {
   mapWidth = width;
   mapHeight = height;
-
-  actors = (living_beings_t *) malloc(sizeof(living_beings_t));
-  last = actors;
-
   initMap();
 }
 
@@ -62,13 +58,8 @@ bool MapData::registerPlayer(Player* p) {
 }
 
 bool MapData::registerObject(Life& o) {
-  last->being = &o;
   // create next slot in the linked list and link it
-  last->next = (living_beings_t *) malloc(sizeof(living_beings_t));
-  last->next->next = NULL;
-  last->next->prev = last;
-
-  last = last->next;
+  LivingBeings::push(&actors, o);
 
   return true;
 }

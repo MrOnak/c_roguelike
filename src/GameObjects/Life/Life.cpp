@@ -35,15 +35,31 @@ void Life::addEnergy(float e) {
 }
 
 bool Life::moveBy(int x, int y) {
-  pos.x += x;
-  pos.y += y;
+  bool retval = MapInterface::isTileWalkable(pos.x + x, pos.y + y);
 
-  return true;
+  if (retval) {
+    pos.x += x;
+    pos.y += y;
+  }
+
+  return retval;
 }
 
 bool Life::moveTo(int x, int y) {
-  pos.x = x;
-  pos.y = y;
+  bool retval = MapInterface::isTileWalkable(x, y);
 
-  return true;
+  if (retval) {
+    pos.x = x;
+    pos.y = y;
+  }
+
+  return retval;
+}
+
+char* Life::debug() {
+  char buff[100];
+  snprintf(buff, sizeof(buff), "%d/%d %c(%.2f, %.2f)",
+    pos.x, pos.y, symbol, energy, costFactor);
+    char* copy = buff;
+  return copy;
 }

@@ -15,31 +15,33 @@ long Timekeeper::getDate() {
 }
 
 void Timekeeper::update() {
-  bool acted = false;
+  living_beings_t* pos = actors;
+  living_beings_t* tmp = NULL;
+  bool end = false;
 
+  // internal timekeeping
   progressTime();
+  // add energy to all entities in linked list
   distributeEnergy(1.0f);
 
-  // rewind to beginning of linked list
-  while (current->prev != NULL) {
-    current = current->prev;
-  }
-
   // trigger actions for all entities
-  do {
-    acted = current->being->act();
-    if (acted) {
+  while (end == false) {
+    if (pos->being->act()) {
       // re-sort entity based on new energy budget
-      sortEntity(current);
+      tmp = pos->next;
+      //sortEntity(&actors, &pos);
+      pos = tmp;
     } else {
       // move pointer to act upon next entity
-      current = current->next;
+      pos = pos->next;
     }
-  } while (current->next != NULL);
+
+    end = (pos == NULL);
+  }
 }
 
-void Timekeeper::setActors(living_beings_t* actor) {
-  current = actor;
+void Timekeeper::setActors(living_beings_t* actorRef) {
+  actors = actorRef;
 }
 
 void Timekeeper::progressTime() {
@@ -49,35 +51,72 @@ void Timekeeper::progressTime() {
 }
 
 void Timekeeper::distributeEnergy(float e) {
-  living_beings_t* pos;
+  living_beings_t* pos = actors;
 
+  int x = 1;
   do {
     // add energy to current entity
-    current->being->addEnergy(e);
-    // re-sort entity based on stored energy
-    sortEntity(current);
+    pos->being->addEnergy(e);
 
     // move pointer to the next entity
-    current = current->next;
-  } while (current->next != NULL);
+    pos = pos->next;
+  } while (pos != NULL);
 }
 
-void Timekeeper::sortEntity(living_beings_t* entity) {
-  living_beings_t* pos = entity;
+void Timekeeper::sortEntity(struct living_beings** headRef, living_beings_t** entity) {
+  living_beings_t *curr;
+  living_beings_t *tmp = NULL;
+  living_beings_t *old = NULL;
 
-
-  while (pos->next->being->getEnergy() >= entity->being->getEnergy()
-    && pos->next != NULL) {
-    pos = pos->next;
+  // don't do anything if element is already at end of list
+  if ((*entity)->next == NULL) {
+    return;
+  }
+  // don't do anything if successor element already has lower energy
+  if ((*entity)->next->being->getEnergy() < (*entity)->being->getEnergy()) {
+    return;
   }
 
-  // un-link entity
-  entity->prev->next = entity->next;
-  entity->next->prev = entity->prev;
+  // now we're sure we have an element that can move and does need moving
+  for (curr = *headRef; curr != NULL; old = curr, curr = curr->next) {
+    // identify element in list
+    if (curr->being->getId() == (*entity)->being->getId()) {
+      // remember element
+      tmp = curr;
+      // unlink it
+      if (old == NULL) {
+        // element is at start of list
+        *headRef = curr->next;
+        old = *headRef;
+      } else {
+        old->next = curr->next;
+      }
+    }
 
-  // re-insert entity after pos
-  entity->next = pos->next;
-  pos->next = entity;
-  entity->prev = pos;
-  entity->next->prev = entity;
+    // place element back in list
+    if (tmp != NULL) {
+      if (curr->next == NULL) {
+        // end of list, just add
+        curr->next = tmp;
+        tmp->next = NULL;
+        break;
+      } else if (curr->next->being->getEnergy() < tmp->being->getEnergy()) {
+        // add in front of entity with lower energy than self
+        tmp->next = curr->next;
+        curr->next = tmp;
+        break;
+      }
+    }
+  }
+}
+
+void Timekeeper::debugActorQueue(int y) {
+  living_beings_t* pos = actors;
+
+  do {
+    mvprintw(y, 1, "%s %d\n", pos->being->debug(), (pos->next == NULL) ? 0 : 1);
+    pos = pos->next;
+    y++;
+  } while (pos != NULL);
+
 }

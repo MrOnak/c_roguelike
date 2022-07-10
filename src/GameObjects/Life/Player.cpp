@@ -12,23 +12,27 @@ bool Player::act() {
   switch(c) {
     case KEY_LEFT:
     case 'a':
-      moveBy(-1, 0);
-      cost = calculateCostOfAction(1.0f);
+      if (moveBy(-1, 0)) {
+        cost = calculateCostOfAction(1.0f);
+      }
       break;
     case KEY_RIGHT:
     case 'd':
-      moveBy(1, 0);
-      cost = calculateCostOfAction(1.0f);
+      if (moveBy(1, 0)) {
+        cost = calculateCostOfAction(1.0f);
+      }
       break;
     case KEY_UP:
     case 'w':
-      moveBy(0, -1);
-      cost = calculateCostOfAction(1.0f);
+      if (moveBy(0, -1)) {
+        cost = calculateCostOfAction(1.0f);
+      }
       break;
     case KEY_DOWN:
     case 's':
-      moveBy(0, 1);
-      cost = calculateCostOfAction(1.0f);
+      if (moveBy(0, 1)) {
+        cost = calculateCostOfAction(1.0f);
+      }
       break;
   }
 

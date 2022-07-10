@@ -13,8 +13,6 @@
 #include "../GameObjects/Life/Critter/Mouse.h"
 #include "../GameObjects/Life/Critter/Frog.h"
 
-using namespace std;
-
 class MapGenerator {
   private:
     MapData *mapData;

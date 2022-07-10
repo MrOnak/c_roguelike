@@ -1,6 +1,9 @@
 build.sh
 roguelike
+build/*
 docs/graphs/*.png
+log/*
+
 
 tests/*.sh
 tests/structs

@@ -7,16 +7,21 @@
 #include "MapData.h"
 #include "MapWindow.h"
 #include "MapGenerator.h"
+#include "../Timekeeper.h"
 
 class MapInterface {
   private:
-    MapWindow *mapWindow;
-    MapGenerator *mapGenerator;
+    static MapWindow* mapWindow;
+    static MapGenerator* mapGenerator;
+    static Timekeeper* timekeeper;
+    MapInterface();
 
   public:
-    void injectMapWindow(MapWindow* mw);
-    void injectMapGenerator(MapGenerator &mg);
-    void generateNewMap(int width, int height);
+    static void injectMapWindow(MapWindow* mw);
+    static void injectMapGenerator(MapGenerator &mg);
+    static void injectTimekeeper(Timekeeper &tk);
+    static void generateNewMap(int width, int height);
+    static bool isTileWalkable(int x, int y);
 };
 
 #endif

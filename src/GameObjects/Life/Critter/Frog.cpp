@@ -11,26 +11,31 @@ bool Frog::act() {
   uint8_t dir = rand() % 5 + 1;
   float cost = 0;
 
+  //cost = calculateCostOfAction(1.0f);
   switch(dir) {
     case 1:
       // left
-      moveBy(-1, 0);
-      cost = calculateCostOfAction(1.0f);
+      if (moveBy(-1, 0)) {
+        cost = calculateCostOfAction(1.0f);
+      }
       break;
     case 2:
       // right
-      moveBy(1, 0);
-      cost = calculateCostOfAction(1.0f);
+      if (moveBy(1, 0)) {
+        cost = calculateCostOfAction(1.0f);
+      }
       break;
     case 3:
       // up
-      moveBy(0, -1);
-      cost = calculateCostOfAction(1.0f);
+      if (moveBy(0, -1)) {
+        cost = calculateCostOfAction(1.0f);
+      }
       break;
     case 4:
       // down
-      moveBy(0, 1);
-      cost = calculateCostOfAction(1.0f);
+      if (moveBy(0, 1)) {
+        cost = calculateCostOfAction(1.0f);
+      }
       break;
     default:
       // resting

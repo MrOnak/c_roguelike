@@ -8,8 +8,6 @@
 #include <curses.h>
 #include <math.h>
 
-using namespace std;
-
 #include "../pos.h"
 #include "MapData.h"
 
@@ -33,13 +31,14 @@ class MapWindow {
     void drawVisibleTerrain();
     void drawThings();
     void drawLife();
+    void refreshWindow();
+    void drawBorder();
 
   public:
     MapWindow(int startX, int startY, int width, int height);
     void assignMap(MapData* md);
     void draw();
     void drawTile(int x, int y);
-    void refresh();
 };
 
 #endif

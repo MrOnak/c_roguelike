@@ -114,13 +114,13 @@ bool shiftRight(struct living_beings** headRef, struct living_beings** element) 
 bool act(life_t** pos) {
   bool retval = false;
 
-  if ((*pos)->being->energy > 0 && rand() % 2 == 0) {
-    (*pos)->being->energy -= rand() % (*pos)->being->energy + 1;
+  if ((*pos)->being->energy >= (*pos)->being->costFactor && rand() % 3 == 0) {
+    (*pos)->being->energy -= (*pos)->being->costFactor;
     retval = true;
   }
   /*
-  if ((*pos)->being->energy >= (*pos)->being->costFactor) {
-    (*pos)->being->energy -= (*pos)->being->costFactor;
+  if ((*pos)->being->energy > 0 && rand() % 2 == 0) {
+    (*pos)->being->energy -= rand() % (*pos)->being->energy + 1;
     retval = true;
   }
   */
@@ -147,7 +147,7 @@ void sort(struct living_beings** headRef, life_t** element) {
   }
 
   // now we're sure we have an element that can move and does need moving
-  for (curr = *headRef; curr != NULL; old = curr, curr=curr->next) {
+  for (curr = *headRef; curr != NULL; old = curr, curr = curr->next) {
     // identify element in list
     if (curr->being->id == (*element)->being->id) {
       // remember element
