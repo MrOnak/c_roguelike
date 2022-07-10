@@ -1,0 +1,49 @@
+digraph dependencies {
+  graph [
+    rankdir=LR
+    labelloc=t
+  ]
+  node [
+    shape=rect
+  ]
+
+  roguelike
+  Mouse; Frog; Critter; Player; Life; GameObject; Generator
+  MapData; MapGenerator; MapInterface; MapWindow
+  Timekeeper
+  LivingBeings
+
+  roguelike -> Timekeeper
+  roguelike -> MapInterface
+  roguelike -> MapWindow
+
+  subgraph gameObjects {
+    Mouse -> Critter -> Life -> GameObject
+    Frog -> Critter
+    Player -> Life
+  }
+  subgraph mapHandlers {
+    MapData -> LivingBeings [label=contains]
+    MapGenerator -> MapData [label=generates]
+    MapInterface -> MapGenerator [label=encapsulates]
+    MapInterface -> MapWindow [label=encapsulates]
+    MapInterface -> Timekeeper [label=encapsulates]
+  }
+
+  subgraph utilities {
+    edge [style=dotted]
+    Generator -> GameObject
+  }
+
+  subgraph mapDataUsers {
+    edge [style=dashed]
+    MapWindow -> MapData [label=references]
+    Life -> MapInterface [label=uses]
+  }
+
+  subgraph livingBeingUsers {
+    edge [style=dashed]
+    Timekeeper -> LivingBeings [label=references]
+    LivingBeings -> Life
+  }
+}
