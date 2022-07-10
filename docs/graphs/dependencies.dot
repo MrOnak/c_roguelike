@@ -22,6 +22,7 @@ digraph dependencies {
     Frog -> Critter
     Player -> Life
   }
+
   subgraph mapHandlers {
     MapData -> LivingBeings [label=contains]
     MapGenerator -> MapData [label=generates]
