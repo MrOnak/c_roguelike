@@ -4,7 +4,6 @@
 #ifndef MAPINTERFACE_H
 #define MAPINTERFACE_H
 
-#include "MapData.h"
 #include "MapWindow.h"
 #include "MapGenerator.h"
 #include "../Timekeeper.h"

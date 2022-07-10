@@ -55,11 +55,3 @@ bool Life::moveTo(int x, int y) {
 
   return retval;
 }
-
-char* Life::debug() {
-  char buff[100];
-  snprintf(buff, sizeof(buff), "%d/%d %c(%.2f, %.2f)",
-    pos.x, pos.y, symbol, energy, costFactor);
-    char* copy = buff;
-  return copy;
-}

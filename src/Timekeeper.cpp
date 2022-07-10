@@ -53,7 +53,6 @@ void Timekeeper::progressTime() {
 void Timekeeper::distributeEnergy(float e) {
   living_beings_t* pos = actors;
 
-  int x = 1;
   do {
     // add energy to current entity
     pos->being->addEnergy(e);
@@ -108,15 +107,4 @@ void Timekeeper::sortEntity(struct living_beings** headRef, living_beings_t** en
       }
     }
   }
-}
-
-void Timekeeper::debugActorQueue(int y) {
-  living_beings_t* pos = actors;
-
-  do {
-    mvprintw(y, 1, "%s %d\n", pos->being->debug(), (pos->next == NULL) ? 0 : 1);
-    pos = pos->next;
-    y++;
-  } while (pos != NULL);
-
 }

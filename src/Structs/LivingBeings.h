@@ -7,8 +7,8 @@
  * structure to hold a linked-list of instances of Life
  */
 typedef struct living_beings {
-  Life * being;
-  struct living_beings * next;
+  Life* being;
+  struct living_beings* next;
 } living_beings_t;
 
 /**

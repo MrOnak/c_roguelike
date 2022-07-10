@@ -1,6 +1,6 @@
 #include "Mouse.h"
 
-Mouse::Mouse(int x, int y) : Life(x, y) {
+Mouse::Mouse(int x, int y) : Critter(x, y) {
   symbol = 'm';
   costFactor = 1.0f;
 }

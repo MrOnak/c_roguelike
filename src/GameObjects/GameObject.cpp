@@ -8,10 +8,6 @@ GameObject::GameObject(int x, int y) {
   symbol = '?';
 }
 
-void GameObject::display() {
-  mvaddch(pos.y, pos.x, symbol);
-}
-
 position GameObject::getPos() {
   return pos;
 }

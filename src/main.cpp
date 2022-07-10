@@ -3,14 +3,14 @@
 #include <curses.h>
 
 #include "Timekeeper.h"
-/*
-#include "Generator.h"
 #include "Map/MapWindow.h"
 #include "Map/MapGenerator.h"
 #include "Map/MapData.h"
 #include "Map/MapInterface.h"
+/*
 
 using namespace std;
+*/
 
 MapGenerator mapGenerator;
 MapWindow *mapWindow;
@@ -32,7 +32,6 @@ void initNCurses() {
   init_pair(1, COLOR_WHITE, COLOR_BLACK);
   init_pair(2, COLOR_GREEN, COLOR_GREEN);
   init_pair(3, COLOR_WHITE, COLOR_WHITE);
-
 }
 
 void initGameEnvironment() {
@@ -44,11 +43,11 @@ void initGameEnvironment() {
   // generate and distribute map data - includes objects and creatures
   MapInterface::generateNewMap(50, 17);
 }
-*/
+
 int main(int argc, char *argv[]) {
   // general initialization
   srand(time(NULL));
-/*
+
   initNCurses();
   initGameEnvironment();
 
@@ -56,6 +55,8 @@ int main(int argc, char *argv[]) {
   attron(COLOR_PAIR(1));
 
   mapWindow->draw();
+  /*
+  */
 
   while (true) {
     // update all entities
@@ -66,10 +67,9 @@ int main(int argc, char *argv[]) {
     mapWindow->draw();
     usleep(500000);
   }
-  //int c = getch(); // this is to keep the debug screen visible before program exits
+  int c = getch(); // this is to keep the debug screen visible before program exits
 
   attroff(COLOR_PAIR(1));
   endwin();
-  */
   return EXIT_SUCCESS;
 }

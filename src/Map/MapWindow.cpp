@@ -98,10 +98,10 @@ void MapWindow::calculateUsableSpace() {
 void MapWindow::drawVisibleTerrain() {
   int x, y;
   position start, end;
-  start.x = max(0, visMapOffset.x);
-  start.y = max(0, visMapOffset.y);
-  end.x = min(mapData->getWidth(), usableWinSize.x + visMapOffset.x);
-  end.y = min(mapData->getHeight(), usableWinSize.y + visMapOffset.y);
+  start.x = std::max(0, visMapOffset.x);
+  start.y = std::max(0, visMapOffset.y);
+  end.x = std::min(mapData->getWidth(), usableWinSize.x + visMapOffset.x);
+  end.y = std::min(mapData->getHeight(), usableWinSize.y + visMapOffset.y);
 
   for (x = start.x; x < end.x; x++) {
     for (y = start.y; y < end.y; y++) {

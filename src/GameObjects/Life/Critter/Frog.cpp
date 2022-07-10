@@ -1,6 +1,6 @@
 #include "Frog.h"
 
-Frog::Frog(int x, int y) : Life(x, y) {
+Frog::Frog(int x, int y) : Critter(x, y) {
   symbol = 'f';
   costFactor = 2.0f;
 }

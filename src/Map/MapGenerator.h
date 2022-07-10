@@ -7,8 +7,6 @@
 #include <stdlib.h>
 
 #include "MapData.h"
-#include "../GameObjects/GameObject.h"
-#include "../GameObjects/Life/Life.h"
 #include "../GameObjects/Life/Player.h"
 #include "../GameObjects/Life/Critter/Mouse.h"
 #include "../GameObjects/Life/Critter/Frog.h"

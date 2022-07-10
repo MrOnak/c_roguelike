@@ -1,12 +1,11 @@
 #ifndef MOUSE_H
 #define MOUSE_H
 
-#include <curses.h>
-#include <stdlib.h>
+#include <cstdint>
 
-#include "../Life.h"
+#include "Critter.h"
 
-class Mouse : public Life {
+class Mouse : public Critter {
   private:
 
   public:

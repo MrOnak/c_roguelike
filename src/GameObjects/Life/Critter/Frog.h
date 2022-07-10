@@ -1,12 +1,11 @@
 #ifndef FROG_H
 #define FROG_H
 
-#include <curses.h>
-#include <stdlib.h>
+#include <cstdint>
 
-#include "../Life.h"
+#include "Critter.h"
 
-class Frog : public Life {
+class Frog : public Critter {
   private:
 
   public:

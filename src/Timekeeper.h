@@ -1,10 +1,9 @@
 #ifndef TIMEKEEPER_H
 #define TIMEKEEPER_H
 
+#include <curses.h>
 #include <unistd.h>
 
-#include "Generator.h"
-#include "GameObjects/Life/Life.h"
 #include "Structs/LivingBeings.h"
 
 class Timekeeper {
@@ -16,7 +15,6 @@ class Timekeeper {
     void distributeEnergy(float e);
     void sortEntity(struct living_beings** headRef, living_beings_t** entity);
     void progressTime();
-    void debugActorQueue(int y);
 
   public:
     Timekeeper();
