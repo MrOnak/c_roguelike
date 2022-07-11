@@ -29,7 +29,7 @@ timekeeper.o:
 
 # Structures
 livingbeings.o: life.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -o $(BUILD_DIR)life.o -c $(SRC_DIR)Structs/LivingBeings.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Structs/LivingBeings.cpp
 
 # Life-Forms
 lifeforms: generator.o frog.o mouse.o player.o
@@ -39,7 +39,7 @@ frog.o: critter.o
 mouse.o: critter.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Critter/Mouse.cpp
 critter.o: life.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -o $(BUILD_DIR)life.o -c $(SRC_DIR)GameObjects/Life/Critter/Critter.cpp
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Critter/Critter.cpp
 player.o: life.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Player.cpp
 life.o: gameobject.o
