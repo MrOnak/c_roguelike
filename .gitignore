@@ -1,6 +1,6 @@
 build.sh
 roguelike
-build/*
+build/*.o
 docs/graphs/*.png
 log/*
 
