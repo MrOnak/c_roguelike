@@ -25,7 +25,7 @@ bool Timekeeper::update() {
   if (pos->being->act()) {
     // re-sort entity based on new energy budget
     tmp = pos->next;
-    sortEntity(&pos);
+    sortEntity();
     pos = tmp;
   } else {
     // move pointer to act upon next entity
@@ -58,25 +58,25 @@ void Timekeeper::distributeEnergy(float e) {
   } while (pos != NULL);
 }
 
-void Timekeeper::sortEntity(living_beings_t** entity) {
+void Timekeeper::sortEntity() {
   living_beings_t **headRef = ObjectStore::getLife();
   living_beings_t *curr;
   living_beings_t *tmp = NULL;
   living_beings_t *old = NULL;
 
   // don't do anything if element is already at end of list
-  if ((*entity)->next == NULL) {
+  if (pos->next == NULL) {
     return;
   }
   // don't do anything if successor element already has lower energy
-  if ((*entity)->next->being->getEnergy() < (*entity)->being->getEnergy()) {
+  if (pos->next->being->getEnergy() < pos->being->getEnergy()) {
     return;
   }
 
   // now we're sure we have an element that can move and does need moving
   for (curr = *headRef; curr != NULL; old = curr, curr = curr->next) {
     // identify element in list
-    if (curr->being->getId() == (*entity)->being->getId()) {
+    if (curr->being->getId() == pos->being->getId()) {
       // remember element
       tmp = curr;
       // unlink it

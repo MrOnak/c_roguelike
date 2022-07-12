@@ -13,7 +13,7 @@ class Timekeeper {
     living_beings_t* pos = NULL;
 
     void distributeEnergy(float e);
-    void sortEntity(living_beings_t** entity);
+    void sortEntity();
 
   public:
     Timekeeper();
