@@ -19,11 +19,6 @@ void Timekeeper::update() {
   living_beings_t* tmp = NULL;
   bool end = false;
 
-  // internal timekeeping
-  progressTime();
-  // add energy to all entities in linked list
-  distributeEnergy(1.0f);
-
   // trigger actions for all entities
   while (end == false) {
     if (pos->being->act()) {
@@ -48,6 +43,9 @@ void Timekeeper::progressTime() {
   time++;
   if (time == 86400) {date++;}
   time = time % 86400;
+
+  // add energy to all entities in linked list
+  distributeEnergy(1.0f);
 }
 
 void Timekeeper::distributeEnergy(float e) {

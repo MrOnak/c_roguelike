@@ -14,13 +14,13 @@ class Timekeeper {
 
     void distributeEnergy(float e);
     void sortEntity(struct living_beings** headRef, living_beings_t** entity);
-    void progressTime();
 
   public:
     Timekeeper();
+    void progressTime();
+    void update();
     long getTime();
     long getDate();
-    void update();
     void setActors(living_beings_t* actor);
 };
 

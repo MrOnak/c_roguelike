@@ -56,6 +56,9 @@ int main(int argc, char *argv[]) {
   */
 
   while (true) {
+    // this is a time step: distribute new energy to all entities
+    timekeeper.progressTime();
+    
     // update all entities
     timekeeper.update();
     //refresh(); // for debugging
