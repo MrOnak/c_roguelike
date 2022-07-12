@@ -1,33 +1,26 @@
 # map rendering
 
 ## overview of map-handling classes
-### MapData
-The instance of MapData contains all information about the map. That includes
+### TileStore
+The static instance of TileStore contains information about the map tiles.
 
-* terrain tile information
-* inanimate objects that can or cannot be interacted with
-* living beings
+Inanimate objects and living beings are stored in ObjectStore.
 
-MapData has no concept of how and where to display this information.
+TileStore has no concept of how and where to display this information.
 
-MapData has no concept of time or progression thereof. MapData is manipulated externally as time progresses, living beings interact with the environment and each other.
+TileStore has no concept of time or progression thereof. TileStore is manipulated externally as time progresses, living beings interact with the environment and each other.
 
 ### MapGenerator
-The MapGenerator is a map factory that can produce all maps, terrains and biomes and construct a MapData instance with all the data.
+The MapGenerator is a map factory that can produce all maps, terrains and biomes and construct a TileStore instance with all the data.
 
-MapGenerator also populates the generated terrain with inanimate objects and living beings.
+MapGenerator also populates the generated terrain with inanimate objects and living beings and stores those in ObjectStore.
 
-During gameplay on a generated map the MapGenerator isn't relevant, it merely generates the data structures within MapData.
+During gameplay on a generated map the MapGenerator isn't relevant, it merely generates the data structures within TileStore.
 
 ### MapWindow
 The MapWindow instance is the GUI that is capable of displaying the map (or a portion of it) inside an ncurses window.
 
 MapWindow has no concept of time or progression thereof. It is simply triggered to draw characters inside its ncurses window.
-
-### MapInterface
-**NOT 100% SURE THIS CLASS IS USEFUL**
-
-MapInterface acts as glue code between all other map- and time-handling instances, it takes care of injecting instances into each other and distributing information, for example the fresh instance of MapData is distributed after MapGenerator has created one.
 
 ## step-based map drawing
 The following describes the sequence of steps implemented to display the visible portion of the map on the game screen.

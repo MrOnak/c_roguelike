@@ -4,15 +4,19 @@
 
 #include <stdlib.h>
 
-#include "MapData.h"
+#include "TileStore.h"
 
-MapData::MapData(int width, int height) {
+int TileStore::mapWidth = 0;
+int TileStore::mapHeight = 0;
+maptile_t** TileStore::map = NULL;
+
+void TileStore::reset(int width, int height) {
   mapWidth = width;
   mapHeight = height;
   initMap();
 }
 
-void MapData::initMap() {
+void TileStore::initMap() {
   int x;
   free(map);
 
@@ -22,15 +26,15 @@ void MapData::initMap() {
   }
 }
 
-bool MapData::isWalkable(int x, int y) {
+bool TileStore::isWalkable(int x, int y) {
   return map[x][y].walkable;
 }
 
-char MapData::getSymbol(int x, int y) {
+char TileStore::getSymbol(int x, int y) {
   return map[x][y].symbol;
 }
 
-bool MapData::defineTile(int x, int y, bool walkable, char symbol) {
+bool TileStore::defineTile(int x, int y, bool walkable, char symbol) {
   bool retval = false;
 
   if (x >= 0 && x < mapWidth && y >= 0 && y < mapHeight) {
@@ -42,32 +46,10 @@ bool MapData::defineTile(int x, int y, bool walkable, char symbol) {
   return retval;
 }
 
-int MapData::getWidth() {
+int TileStore::getWidth() {
   return mapWidth;
 }
 
-int MapData::getHeight() {
+int TileStore::getHeight() {
   return mapHeight;
-}
-
-bool MapData::registerPlayer(Player* p) {
-  player = p;
-  registerObject(*p);
-
-  return true;
-}
-
-bool MapData::registerObject(Life& o) {
-  // create next slot in the linked list and link it
-  LivingBeings::push(&actors, o);
-
-  return true;
-}
-
-Player* MapData::getPlayer() {
-  return player;
-}
-
-living_beings_t* MapData::getLife() {
-  return actors;
 }

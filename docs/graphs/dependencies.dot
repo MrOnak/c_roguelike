@@ -7,44 +7,48 @@ digraph dependencies {
     shape=rect
   ]
 
-  roguelike
-  Mouse; Frog; Critter; Player; Life; GameObject; Generator
-  MapData; MapGenerator; MapInterface; MapWindow
-  Timekeeper
+  roguelike; ObjectStore; TileStore; MapGenerator; MapWindow; Timekeeper
   LivingBeings
+  Generator
 
-  roguelike -> Timekeeper
-  roguelike -> MapInterface
-  roguelike -> MapWindow
-
-  subgraph gameObjects {
-    Mouse -> Critter -> Life -> GameObject
-    Frog -> Critter
-    Player -> Life
+  subgraph baseobjects {
+    roguelike -> Timekeeper
+    roguelike -> MapWindow
+    roguelike -> MapGenerator
+    roguelike -> TileStore
+    roguelike -> ObjectStore
   }
 
-  subgraph mapHandlers {
-    MapData -> LivingBeings [label=contains]
-    MapGenerator -> MapData [label=generates]
-    MapInterface -> MapGenerator [label=encapsulates]
-    MapInterface -> MapWindow [label=encapsulates]
-    MapInterface -> Timekeeper [label=encapsulates]
+  subgraph generators {
+    MapGenerator -> TileStore [style=dashed, label=fills]
+    MapGenerator -> ObjectStore [style=dashed, label=fills]
+    ObjectStore -> LivingBeings
+  }
+
+  subgraph gameObjects {
+    edge [arrowtail=empty; dir=back]
+    Life -> Critter
+    Life -> Player
+    Critter -> Mouse
+    Critter -> Frog
+    GameObject -> Life
+  }
+
+  subgraph objectStoreUsers {
+    edge [style=dashed]
+    Timekeeper -> ObjectStore [label=references]
+    LivingBeings -> Life
+  }
+
+  subgraph tileStoreUsers {
+    edge [style=dashed]
+    MapWindow -> TileStore [label=references]
+    MapWindow -> ObjectStore [label=references]
+    Life -> TileStore [label=uses]
   }
 
   subgraph utilities {
-    edge [style=dotted]
+    edge [style=dotted, arrowhead=none]
     Generator -> GameObject
-  }
-
-  subgraph mapDataUsers {
-    edge [style=dashed]
-    MapWindow -> MapData [label=references]
-    Life -> MapInterface [label=uses]
-  }
-
-  subgraph livingBeingUsers {
-    edge [style=dashed]
-    Timekeeper -> LivingBeings [label=references]
-    LivingBeings -> Life
   }
 }

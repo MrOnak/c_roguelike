@@ -4,7 +4,7 @@
 #include <curses.h>
 #include <unistd.h>
 
-#include "Structs/LivingBeings.h"
+#include "GameObjects/ObjectStore.h"
 
 class Timekeeper {
   private:

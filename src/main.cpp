@@ -5,8 +5,9 @@
 #include "Timekeeper.h"
 #include "Map/MapWindow.h"
 #include "Map/MapGenerator.h"
-#include "Map/MapData.h"
-#include "Map/MapInterface.h"
+
+#include "Map/TileStore.h"
+#include "GameObjects/ObjectStore.h"
 /*
 
 using namespace std;
@@ -36,12 +37,8 @@ void initNCurses() {
 
 void initGameEnvironment() {
   mapWindow = new MapWindow(0, 0, 62, 22);
-  // inject everything into map interface
-  MapInterface::injectMapWindow(mapWindow);
-  MapInterface::injectMapGenerator(mapGenerator);
-  MapInterface::injectTimekeeper(timekeeper);
   // generate and distribute map data - includes objects and creatures
-  MapInterface::generateNewMap(50, 17);
+  mapGenerator.generate(50, 17);
 }
 
 int main(int argc, char *argv[]) {

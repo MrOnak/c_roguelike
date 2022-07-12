@@ -9,7 +9,8 @@
 #include <math.h>
 
 #include "../pos.h"
-#include "MapData.h"
+#include "TileStore.h"
+#include "../GameObjects/ObjectStore.h"
 
 class MapWindow {
   private:
@@ -19,11 +20,10 @@ class MapWindow {
     position winSize;
     // ncurses window border padding
     position winMapOffset;
-    // defines the top-left x/y coordinates of MapData tileset we're actually going to draw
+    // defines the top-left x/y coordinates of TileStore tileset we're actually going to draw
     position visMapOffset;
     position usableWinSize;
     position usableWinHalfSize;
-    MapData *mapData;
     WINDOW *mapWin;
     void calculateVisMapOffset();
     void calculateUsableSpace();
@@ -36,7 +36,6 @@ class MapWindow {
 
   public:
     MapWindow(int startX, int startY, int width, int height);
-    void assignMap(MapData* md);
     void draw();
     void drawTile(int x, int y);
 };

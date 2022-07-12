@@ -11,7 +11,6 @@ bool Frog::act() {
   uint8_t dir = rand() % 5 + 1;
   float cost = 0;
 
-  //cost = calculateCostOfAction(1.0f);
   switch(dir) {
     case 1:
       // left

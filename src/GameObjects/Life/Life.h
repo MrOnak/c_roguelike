@@ -2,7 +2,7 @@
 #define LIFE_H
 
 #include "../GameObject.h"
-#include "../../Map/MapInterface.h"
+#include "../../Map/TileStore.h"
 
 class Life : public GameObject {
   private:

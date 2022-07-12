@@ -35,7 +35,7 @@ void Life::addEnergy(float e) {
 }
 
 bool Life::moveBy(int x, int y) {
-  bool retval = MapInterface::isTileWalkable(pos.x + x, pos.y + y);
+  bool retval = TileStore::isWalkable(pos.x + x, pos.y + y);
 
   if (retval) {
     pos.x += x;
@@ -46,7 +46,7 @@ bool Life::moveBy(int x, int y) {
 }
 
 bool Life::moveTo(int x, int y) {
-  bool retval = MapInterface::isTileWalkable(x, y);
+  bool retval = TileStore::isWalkable(x, y);
 
   if (retval) {
     pos.x = x;

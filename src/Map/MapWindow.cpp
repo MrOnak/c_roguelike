@@ -14,7 +14,7 @@ MapWindow::MapWindow(int startX, int startY, int width, int height) {
   // ncurses window border padding
   winMapOffset.x = 1;
   winMapOffset.y = 1;
-  // defines the top-left x/y coordinates of MapData tileset we're actually going to draw
+  // defines the top-left x/y coordinates of TileStore tileset we're actually going to draw
   visMapOffset.x = 0;
   visMapOffset.y = 0;
 
@@ -22,10 +22,6 @@ MapWindow::MapWindow(int startX, int startY, int width, int height) {
   refreshWindow();
 
   MapWindow::calculateUsableSpace();
-}
-
-void MapWindow::assignMap(MapData* md) {
-  mapData = md;
 }
 
 void MapWindow::draw() {
@@ -41,7 +37,7 @@ void MapWindow::drawTile(int x, int y) {
   mvwaddch(mapWin,
     y + winMapOffset.y - visMapOffset.y,
     x + winMapOffset.x - visMapOffset.x,
-    mapData->getSymbol(x, y));
+    TileStore::getSymbol(x, y));
 }
 
 void MapWindow::refreshWindow() {
@@ -72,7 +68,7 @@ void MapWindow::drawBorder() {
 }
 
 void MapWindow::calculateVisMapOffset() {
-  position playerPos = mapData->getPlayer()->getPos();
+  position playerPos = ObjectStore::getPlayer()->getPos();
 
   // calculate offset so that player position is in the center of the usable space
   visMapOffset.x = playerPos.x - usableWinHalfSize.x;
@@ -100,8 +96,8 @@ void MapWindow::drawVisibleTerrain() {
   position start, end;
   start.x = std::max(0, visMapOffset.x);
   start.y = std::max(0, visMapOffset.y);
-  end.x = std::min(mapData->getWidth(), usableWinSize.x + visMapOffset.x);
-  end.y = std::min(mapData->getHeight(), usableWinSize.y + visMapOffset.y);
+  end.x = std::min(TileStore::getWidth(), usableWinSize.x + visMapOffset.x);
+  end.y = std::min(TileStore::getHeight(), usableWinSize.y + visMapOffset.y);
 
   for (x = start.x; x < end.x; x++) {
     for (y = start.y; y < end.y; y++) {
@@ -115,7 +111,7 @@ void MapWindow::drawThings() {
 }
 
 void MapWindow::drawLife() {
-  living_beings_t* current = mapData->getLife();
+  living_beings_t* current = ObjectStore::getLife();
   position pos;
   /* iterate over all creatures and draw them on top of the map
      if they are on the visible part of the map */

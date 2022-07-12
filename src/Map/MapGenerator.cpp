@@ -10,12 +10,8 @@ void MapGenerator::generate(int width, int height) {
   generateLife();
 }
 
-MapData* MapGenerator::getMap() {
-  return mapData;
-}
-
 void MapGenerator::generateTiles(int width, int height) {
-  mapData = new MapData(width, height);
+  TileStore::reset(width, height);
   bool walkable;
   char symbol;
 
@@ -31,7 +27,7 @@ void MapGenerator::generateTiles(int width, int height) {
         symbol = ',';
       }
 
-      mapData->defineTile(x, y, walkable, symbol);
+      TileStore::defineTile(x, y, walkable, symbol);
     }
   }
 }
@@ -42,13 +38,13 @@ void MapGenerator::generateThings() {
 
 void MapGenerator::generateLife() {
   Player* player = new Player(1, 5);
-  mapData->registerPlayer(player);
+  ObjectStore::registerPlayer(player);
 
   Mouse* mouse = new Mouse(15, 5);
   Mouse* mouse2 = new Mouse(12, 3);
   Frog* frog = new Frog(10, 7);
 
-  mapData->registerObject(*mouse);
-  mapData->registerObject(*mouse2);
-  mapData->registerObject(*frog);
+  ObjectStore::registerLife(*mouse);
+  ObjectStore::registerLife(*mouse2);
+  ObjectStore::registerLife(*frog);
 }
