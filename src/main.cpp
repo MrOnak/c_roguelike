@@ -58,14 +58,13 @@ int main(int argc, char *argv[]) {
   while (true) {
     // this is a time step: distribute new energy to all entities
     timekeeper.progressTime();
-    
-    // update all entities
-    timekeeper.update();
-    //refresh(); // for debugging
 
-    // draw map
-    mapWindow->draw();
-    usleep(500000);
+    // update all entities one by one and refresh the screen
+    while (timekeeper.update()) {
+      //refresh(); // for debugging
+      mapWindow->draw();
+      usleep(500000);
+    }
   }
   int c = getch(); // this is to keep the debug screen visible before program exits
 
