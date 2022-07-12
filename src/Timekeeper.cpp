@@ -35,10 +35,6 @@ bool Timekeeper::update() {
   return (pos != NULL);
 }
 
-void Timekeeper::setActors(living_beings_t* actorRef) {
-  actors = actorRef;
-}
-
 void Timekeeper::progressTime() {
   time++;
   if (time == 86400) {date++;}

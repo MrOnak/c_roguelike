@@ -12,7 +12,7 @@ class Timekeeper {
     long time;
     living_beings_t* actors = NULL;
     living_beings_t* pos = NULL;
-    
+
     void distributeEnergy(float e);
     void sortEntity(struct living_beings** headRef, living_beings_t** entity);
 
@@ -22,7 +22,6 @@ class Timekeeper {
     bool update();
     long getTime();
     long getDate();
-    void setActors(living_beings_t* actor);
 };
 
 #endif
