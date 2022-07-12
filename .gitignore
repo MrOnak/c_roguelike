@@ -1,4 +1,3 @@
-build.sh
 roguelike
 build/*.o
 docs/graphs/*.png
