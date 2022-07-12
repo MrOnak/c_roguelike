@@ -111,7 +111,7 @@ void MapWindow::drawThings() {
 }
 
 void MapWindow::drawLife() {
-  living_beings_t* current = ObjectStore::getLife();
+  living_beings_t* current = *ObjectStore::getLife();
   position pos;
   /* iterate over all creatures and draw them on top of the map
      if they are on the visible part of the map */

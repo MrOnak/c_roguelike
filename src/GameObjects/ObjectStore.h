@@ -15,7 +15,7 @@ class ObjectStore {
     static bool registerPlayer(Player* p);
     static bool registerLife(Life& o);
     static Player* getPlayer();
-    static living_beings_t* getLife();
+    static living_beings_t** getLife();
 };
 
 #endif

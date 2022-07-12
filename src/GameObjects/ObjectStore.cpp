@@ -21,6 +21,6 @@ Player* ObjectStore::getPlayer() {
   return player;
 }
 
-living_beings_t* ObjectStore::getLife() {
-  return actors;
+living_beings_t** ObjectStore::getLife() {
+  return &actors;
 }

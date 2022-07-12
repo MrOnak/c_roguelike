@@ -25,7 +25,7 @@ bool Timekeeper::update() {
   if (pos->being->act()) {
     // re-sort entity based on new energy budget
     tmp = pos->next;
-    sortEntity(&actors, &pos);
+    sortEntity(&pos);
     pos = tmp;
   } else {
     // move pointer to act upon next entity
@@ -43,11 +43,11 @@ void Timekeeper::progressTime() {
   // add energy to all entities in linked list
   distributeEnergy(1.0f);
   // reset position counter
-  pos = ObjectStore::getLife();
+  pos = *ObjectStore::getLife();
 }
 
 void Timekeeper::distributeEnergy(float e) {
-  living_beings_t* pos = ObjectStore::getLife();
+  living_beings_t* pos = *ObjectStore::getLife();
 
   do {
     // add energy to current entity
@@ -58,7 +58,8 @@ void Timekeeper::distributeEnergy(float e) {
   } while (pos != NULL);
 }
 
-void Timekeeper::sortEntity(struct living_beings** headRef, living_beings_t** entity) {
+void Timekeeper::sortEntity(living_beings_t** entity) {
+  living_beings_t **headRef = ObjectStore::getLife();
   living_beings_t *curr;
   living_beings_t *tmp = NULL;
   living_beings_t *old = NULL;
