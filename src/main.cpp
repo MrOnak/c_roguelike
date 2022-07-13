@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
       usleep(100000);
     }
   }
-  int c = getch(); // this is to keep the debug screen visible before program exits
+  //int c = getch(); // this is to keep the debug screen visible before program exits
 
   attroff(COLOR_PAIR(1));
   endwin();
