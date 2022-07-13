@@ -38,7 +38,7 @@ void draw() {
   living_beings_t* curr = NULL;
 
   for (curr = *headRef; curr != NULL; curr = curr->next) {
-    printf("%d/%d %c#%d(e:%.0f c:%0.f) - ",
+    printf("%d/%d %c#%ld(e:%.0f c:%0.f) - ",
       curr->being->getPos().x, curr->being->getPos().y,
       curr->being->getSymbol(), curr->being->getId(),
       curr->being->getEnergy(), curr->being->getCostFactor());
@@ -49,12 +49,10 @@ void draw() {
 void initCreatures() {
   Mouse* mouse1 = new Mouse(10, 10);
   Mouse* mouse2 = new Mouse(11, 11);
-  Mouse* mouse3 = new Mouse(12, 11);
   Frog* frog1 = new Frog(5, 5);
 
   ObjectStore::registerLife(*mouse1);
   ObjectStore::registerLife(*mouse2);
-  ObjectStore::registerLife(*mouse3);
   ObjectStore::registerLife(*frog1);
 }
 

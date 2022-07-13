@@ -6,35 +6,30 @@ Player::Player(int x, int y) : Life(x, y) {
 }
 
 bool Player::act() {
-  int c = getch();
-  float cost = 0;
+  bool retval = false;
+  // don't even try to act if energy is lower than costFactor
+  if (getEnergy() >= costFactor) {
+    int c = getch();
 
-  switch(c) {
-    case KEY_LEFT:
-    case 'a':
-      if (moveBy(-1, 0)) {
-        cost = calculateCostOfAction(1.0f);
-      }
-      break;
-    case KEY_RIGHT:
-    case 'd':
-      if (moveBy(1, 0)) {
-        cost = calculateCostOfAction(1.0f);
-      }
-      break;
-    case KEY_UP:
-    case 'w':
-      if (moveBy(0, -1)) {
-        cost = calculateCostOfAction(1.0f);
-      }
-      break;
-    case KEY_DOWN:
-    case 's':
-      if (moveBy(0, 1)) {
-        cost = calculateCostOfAction(1.0f);
-      }
-      break;
+    switch(c) {
+      case KEY_LEFT:
+      case 'a':
+        retval = moveBy(-1, 0);
+        break;
+      case KEY_RIGHT:
+      case 'd':
+        retval = moveBy(1, 0);
+        break;
+      case KEY_UP:
+      case 'w':
+        retval = moveBy(0, -1);
+        break;
+      case KEY_DOWN:
+      case 's':
+        retval = moveBy(0, 1);
+        break;
+    }
   }
 
-  return consumeEnergy(cost);
+  return retval;
 }

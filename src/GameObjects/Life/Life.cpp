@@ -14,9 +14,14 @@ float Life::calculateCostOfAction(float rawCost) {
 
 /**
  * returns false if energy budget is lower than given cost.
- * if energy budget exceeds cost it is reduced by the amount and method returns true
+ * if energy budget exceeds cost it is reduced by the amount
+ * and method returns true.
+ *
+ * cost given must be the raw cost. costFactor is applied
+ * internally
  */
-bool Life::consumeEnergy(float cost) {
+bool Life::consumeEnergy(float rawCost) {
+  float cost = calculateCostOfAction(rawCost);
   bool retval = (energy >= cost);
 
   if (retval) {
@@ -39,23 +44,33 @@ void Life::addEnergy(float e) {
 }
 
 bool Life::moveBy(int x, int y) {
-  bool retval = TileStore::isWalkable(pos.x + x, pos.y + y);
+  bool retval = false;
+  float rawCost = 1.0f;
 
-  if (retval) {
+  if (TileStore::isWalkable(pos.x + x, pos.y + y)
+    && consumeEnergy(rawCost)) {
     pos.x += x;
     pos.y += y;
+    retval = true;
   }
 
   return retval;
 }
 
 bool Life::moveTo(int x, int y) {
-  bool retval = TileStore::isWalkable(x, y);
+  bool retval = false;
+  float rawCost = 1.0f;
 
-  if (retval) {
+  if (TileStore::isWalkable(x, y)
+    && consumeEnergy(rawCost)) {
     pos.x = x;
     pos.y = y;
+    retval = true;
   }
 
   return retval;
+}
+
+bool Life::noop() {
+  return true;
 }

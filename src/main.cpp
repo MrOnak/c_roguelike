@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
     while (timekeeper.update()) {
       //refresh(); // for debugging
       mapWindow->draw();
-      usleep(500000);
+      usleep(100000);
     }
   }
   int c = getch(); // this is to keep the debug screen visible before program exits

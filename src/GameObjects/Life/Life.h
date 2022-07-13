@@ -12,6 +12,9 @@ class Life : public GameObject {
     float costFactor;
     float calculateCostOfAction(float rawCost);
     bool consumeEnergy(float e);
+    bool moveBy(int x, int y);
+    bool moveTo(int x, int y);
+    bool noop();
 
   public:
     Life(int x, int y);
@@ -19,8 +22,6 @@ class Life : public GameObject {
     float getEnergy();
     float getCostFactor();
     void addEnergy(float e);
-    bool moveBy(int x, int y);
-    bool moveTo(int x, int y);
 };
 
 #endif
