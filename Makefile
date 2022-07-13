@@ -8,11 +8,11 @@ TEST_DIR = tests/
 
 # master commands
 all: clean roguelike
-roguelike: lifeforms maphandlers timekeeper.o main.o livingbeings.o
+roguelike: lifeforms maphandlers timekeeper.o logger.o main.o livingbeings.o
 	$(CC) $(CFLAGS) -o roguelike $(BUILD_DIR)main.o \
-		$(BUILD_DIR)objectstore.o $(BUILD_DIR)gameobject.o $(BUILD_DIR)life.o $(BUILD_DIR)player.o $(BUILD_DIR)mouse.o $(BUILD_DIR)frog.o $(BUILD_DIR)critter.o $(BUILD_DIR)generator.o \
+		$(BUILD_DIR)objectstore.o $(BUILD_DIR)gameobject.o $(BUILD_DIR)life.o $(BUILD_DIR)player.o $(BUILD_DIR)mouse.o $(BUILD_DIR)frog.o $(BUILD_DIR)critter.o \
 		$(BUILD_DIR)livingbeings.o \
-		$(BUILD_DIR)timekeeper.o \
+		$(BUILD_DIR)generator.o $(BUILD_DIR)timekeeper.o $(BUILD_DIR)logger.o \
 		$(BUILD_DIR)tilestore.o $(BUILD_DIR)mapgenerator.o $(BUILD_DIR)mapwindow.o \
 		$(CLIBS)
 main.o:
@@ -26,6 +26,8 @@ generator.o:
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Helpers/Generator.cpp
 timekeeper.o: objectstore.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Helpers/Timekeeper.cpp
+logger.o:
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Helpers/Logger.cpp
 
 # Structures
 livingbeings.o: life.o
@@ -61,7 +63,9 @@ mapwindow.o: tilestore.o objectstore.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Map/MapWindow.cpp
 
 # tests
-tests: test_time_raw test_time_integrated
+tests: test_logging test_time_raw test_time_integrated
+test_logging: logger.o
+	$(CC) $(CFLAGS) -o $(TEST_DIR)logging $(BUILD_DIR)logger.o $(TEST_DIR)logging.cpp $(CLIBS)
 test_time_raw:
 	$(CC) $(CFLAGS) -o $(TEST_DIR)time $(TEST_DIR)time.cpp $(CLIBS)
 test_time_integrated: frog.o mouse.o tilestore.o timekeeper.o
