@@ -2,7 +2,7 @@
 #define GAMEOBJECT_H
 
 #include "../pos.h"
-#include "../Generator.h"
+#include "../Helpers/Generator.h"
 
 class GameObject {
   private:

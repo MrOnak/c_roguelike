@@ -2,7 +2,7 @@
 #include <time.h>
 #include <curses.h>
 
-#include "Timekeeper.h"
+#include "Helpers/Timekeeper.h"
 #include "Map/MapWindow.h"
 #include "Map/MapGenerator.h"
 

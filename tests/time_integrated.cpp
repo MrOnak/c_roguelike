@@ -5,7 +5,7 @@ using namespace std;
 
 #include "../src/Map/TileStore.h"
 #include "../src/GameObjects/ObjectStore.h"
-#include "../src/Timekeeper.h"
+#include "../src/Helpers/Timekeeper.h"
 #include "../src/GameObjects/Life/Critter/Frog.h"
 #include "../src/GameObjects/Life/Critter/Mouse.h"
 
