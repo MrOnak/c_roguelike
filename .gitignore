@@ -9,3 +9,4 @@ tests/structs
 tests/mapgenerator
 tests/mapdata
 tests/time
+tests/time2

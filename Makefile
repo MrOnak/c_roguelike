@@ -59,3 +59,15 @@ mapgenerator.o: tilestore.o objectstore.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Map/MapGenerator.cpp
 mapwindow.o: tilestore.o objectstore.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Map/MapWindow.cpp
+
+# tests
+tests: test_time_raw test_time_integrated
+test_time_raw:
+	$(CC) $(CFLAGS) -o $(TEST_DIR)time $(TEST_DIR)time.cpp $(CLIBS)
+test_time_integrated: frog.o mouse.o tilestore.o timekeeper.o
+	$(CC) $(CFLAGS) -o $(TEST_DIR)time2 \
+		$(BUILD_DIR)objectstore.o $(BUILD_DIR)livingbeings.o \
+		$(BUILD_DIR)gameobject.o $(BUILD_DIR)life.o $(BUILD_DIR)critter.o \
+		$(BUILD_DIR)player.o $(BUILD_DIR)frog.o $(BUILD_DIR)mouse.o \
+		$(BUILD_DIR)generator.o $(BUILD_DIR)tilestore.o $(BUILD_DIR)timekeeper.o \
+		$(TEST_DIR)time_integrated.cpp $(CLIBS)

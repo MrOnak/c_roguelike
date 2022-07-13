@@ -30,6 +30,10 @@ float Life::getEnergy() {
   return energy;
 }
 
+float Life::getCostFactor() {
+  return costFactor;
+}
+
 void Life::addEnergy(float e) {
   energy += e;
 }

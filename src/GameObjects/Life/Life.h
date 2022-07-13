@@ -17,6 +17,7 @@ class Life : public GameObject {
     Life(int x, int y);
     virtual bool act() = 0;
     float getEnergy();
+    float getCostFactor();
     void addEnergy(float e);
     bool moveBy(int x, int y);
     bool moveTo(int x, int y);
