@@ -1,10 +1,10 @@
 #include "Timekeeper.h"
 
-Timekeeper::Timekeeper() {
-  date = 0;
-  time = 0;
-}
+long Timekeeper::date = 0;
+long Timekeeper::time = 0;
 
+Timekeeper::Timekeeper() {
+}
 
 long Timekeeper::getTime() {
   return time;
@@ -44,6 +44,7 @@ void Timekeeper::progressTime() {
   distributeEnergy(1.0f);
   // reset position counter
   pos = *ObjectStore::getLife();
+  Logger::log("game time has stepped forward", Logger::LVL_DEBUG);
 }
 
 void Timekeeper::distributeEnergy(float e) {

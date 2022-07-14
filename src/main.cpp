@@ -32,12 +32,12 @@ void initNCurses() {
   init_pair(2, COLOR_GREEN, COLOR_GREEN);
   init_pair(3, COLOR_WHITE, COLOR_WHITE);
   Logger::log("ncurses initialized", Logger::LVL_DEBUG);
-
 }
 
 void initGameEnvironment() {
   mapWindow = new MapWindow(0, 0, 62, 22);
   // generate and distribute map data - includes objects and creatures
+  Logger::log("generating map...", Logger::LVL_DEBUG);
   mapGenerator.generate(50, 17);
   Logger::log("game environment is set up", Logger::LVL_DEBUG);
 }

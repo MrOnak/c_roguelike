@@ -4,6 +4,8 @@
 #include <fstream>
 #include <string.h>
 
+#include "Timekeeper.h"
+
 class Logger {
   private:
     static std::ofstream writer;

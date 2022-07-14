@@ -5,11 +5,12 @@
 #include <unistd.h>
 
 #include "../GameObjects/ObjectStore.h"
+#include "Logger.h"
 
 class Timekeeper {
   private:
-    long date;
-    long time;
+    static long date;
+    static long time;
     living_beings_t* pos = NULL;
 
     void distributeEnergy(float e);
@@ -19,8 +20,8 @@ class Timekeeper {
     Timekeeper();
     void progressTime();
     bool update();
-    long getTime();
-    long getDate();
+    static long getTime();
+    static long getDate();
 };
 
 #endif

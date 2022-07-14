@@ -24,9 +24,9 @@ clean:
 # Helpers
 generator.o:
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Helpers/Generator.cpp
-timekeeper.o: objectstore.o
+timekeeper.o: objectstore.o logger.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Helpers/Timekeeper.cpp
-logger.o:
+logger.o: timekeeper.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Helpers/Logger.cpp
 
 # Structures

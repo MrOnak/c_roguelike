@@ -18,10 +18,23 @@ char* Logger::getSystemTime() {
   return dt;
 }
 
+char* Logger::getGameTime() {
+  long time = Timekeeper::getTime();
+  long date = Timekeeper::getDate();
+  long timestamp = date*86400 + time;
+
+  time_t rawtime = (time_t) timestamp;
+  struct tm * timeinfo = localtime(&rawtime);
+  char *dt = (char*) malloc(sizeof(char) * (51));
+  strftime(dt, 50, "%a %b %d %H:%M:%S %Y", timeinfo);
+
+  return dt;
+}
+
 bool Logger::setFile(std::string filepath, int level) {
   bool retval = true;
   setLevel(level);
-  writer.open(filepath, std::ios::out | std::ios::app);
+  writer.open(filepath, std::ios::out);
 
   if (!writer) {
     retval = false;
@@ -38,6 +51,6 @@ void Logger::setLevel(int level) {
 
 void Logger::log(std::string message, int level) {
   if (writer && loglevel >= level) {
-    writer << getSystemTime() << " (" << strLevels[level] << ")" << ": " << message << std::endl;
+    writer << getGameTime() << " (" << strLevels[level] << ")" << ": " << message << std::endl;
   }
 }
