@@ -2,6 +2,12 @@ digraph objects {
   graph [
     rankdir=RL
   ]
+  node [
+    shape=rect
+  ]
+  edge [
+    arrowhead=empty
+  ]
 
   Thing -> GameObject;
   Life -> GameObject;
@@ -9,6 +15,7 @@ digraph objects {
   Critter -> Life;
   Animal -> Life;
   Sentient -> Life;
+  Plant -> Life;
   Mouse -> Critter;
   Frog->Critter;
 }

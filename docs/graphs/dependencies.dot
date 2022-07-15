@@ -7,48 +7,48 @@ digraph dependencies {
     shape=rect
   ]
 
-  roguelike; ObjectStore; TileStore; MapGenerator; MapWindow; Timekeeper
+  roguelike; "<static>\nObjectStore"; "<static>\nTileStore"; MapGenerator; MapWindow; Timekeeper
   LivingBeings
-  Generator
+  "<static>\nGenerator"
 
   subgraph baseobjects {
     roguelike -> Timekeeper
     roguelike -> MapWindow
     roguelike -> MapGenerator
-    roguelike -> TileStore
-    roguelike -> ObjectStore
+    roguelike -> "<static>\nTileStore"
+    roguelike -> "<static>\nObjectStore"
   }
 
   subgraph generators {
-    MapGenerator -> TileStore [style=dashed, label=fills]
-    MapGenerator -> ObjectStore [style=dashed, label=fills]
-    ObjectStore -> LivingBeings
+    MapGenerator -> "<static>\nTileStore" [style=dashed, label=fills]
+    MapGenerator -> "<static>\nObjectStore" [style=dashed, label=fills]
+    "<static>\nObjectStore" -> LivingBeings
   }
 
   subgraph gameObjects {
     edge [arrowtail=empty; dir=back]
-    Life -> Critter
-    Life -> Player
-    Critter -> Mouse
-    Critter -> Frog
-    GameObject -> Life
+    "<abstract>\nLife" -> "<abstract>\nCritter"
+    "<abstract>\nLife" -> Player
+    "<abstract>\nCritter" -> Mouse
+    "<abstract>\nCritter" -> Frog
+    "<abstract>\nGameObject" -> "<abstract>\nLife"
   }
 
   subgraph objectStoreUsers {
     edge [style=dashed]
-    Timekeeper -> ObjectStore [label=references]
-    LivingBeings -> Life
+    Timekeeper -> "<static>\nObjectStore" [label=references]
+    LivingBeings -> "<abstract>\nLife"
   }
 
   subgraph tileStoreUsers {
     edge [style=dashed]
-    MapWindow -> TileStore [label=references]
-    MapWindow -> ObjectStore [label=references]
-    Life -> TileStore [label=uses]
+    MapWindow -> "<static>\nTileStore" [label=references]
+    MapWindow -> "<static>\nObjectStore" [label=references]
+    "<abstract>\nLife" -> "<static>\nTileStore" [label=uses]
   }
 
   subgraph utilities {
     edge [style=dotted, arrowhead=none]
-    Generator -> GameObject
+    "<static>\nGenerator" -> "<abstract>\nGameObject"
   }
 }
