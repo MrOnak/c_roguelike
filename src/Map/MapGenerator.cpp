@@ -7,6 +7,7 @@
 void MapGenerator::generate(int width, int height) {
   generateTiles(width, height);
   generateThings();
+  generateVegetation();
   generateLife();
 }
 
@@ -34,6 +35,13 @@ void MapGenerator::generateTiles(int width, int height) {
 
 void MapGenerator::generateThings() {
 
+}
+
+void MapGenerator::generateVegetation() {
+  for (int i = 0; i < 100; i++) {
+    Tree* tree = new Tree(rand() % (TileStore::getWidth()-2) + 1, rand() % (TileStore::getHeight()-2) + 1);
+    ObjectStore::registerLife(*tree);
+  }
 }
 
 void MapGenerator::generateLife() {

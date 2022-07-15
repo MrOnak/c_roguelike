@@ -10,7 +10,9 @@ TEST_DIR = tests/
 all: clean roguelike
 roguelike: lifeforms maphandlers timekeeper.o logger.o main.o livingbeings.o
 	$(CC) $(CFLAGS) -o roguelike $(BUILD_DIR)main.o \
-		$(BUILD_DIR)objectstore.o $(BUILD_DIR)gameobject.o $(BUILD_DIR)life.o $(BUILD_DIR)player.o $(BUILD_DIR)mouse.o $(BUILD_DIR)frog.o $(BUILD_DIR)critter.o \
+		$(BUILD_DIR)objectstore.o $(BUILD_DIR)gameobject.o $(BUILD_DIR)life.o \
+		$(BUILD_DIR)player.o $(BUILD_DIR)mouse.o $(BUILD_DIR)frog.o $(BUILD_DIR)critter.o \
+		$(BUILD_DIR)plant.o $(BUILD_DIR)tree.o \
 		$(BUILD_DIR)livingbeings.o \
 		$(BUILD_DIR)generator.o $(BUILD_DIR)timekeeper.o $(BUILD_DIR)logger.o \
 		$(BUILD_DIR)tilestore.o $(BUILD_DIR)mapgenerator.o $(BUILD_DIR)mapwindow.o \
@@ -34,19 +36,27 @@ livingbeings.o: life.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)Structs/LivingBeings.cpp
 
 # Life-Forms
-lifeforms: frog.o mouse.o player.o objectstore.o
+lifeforms: tree.o frog.o mouse.o player.o objectstore.o
 
 objectstore.o: livingbeings.o player.o life.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/ObjectStore.cpp
 
+# plants
+tree.o: plant.o
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Plant/Tree.cpp
+plant.o: life.o
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Plant/Plant.cpp
+# critters
 frog.o: critter.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Critter/Frog.cpp
 mouse.o: critter.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Critter/Mouse.cpp
 critter.o: life.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Critter/Critter.cpp
+	# player
 player.o: life.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Player.cpp
+## bases classes
 life.o: gameobject.o tilestore.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)$@ -c $(SRC_DIR)GameObjects/Life/Life.cpp
 gameobject.o: generator.o
