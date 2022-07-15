@@ -11,6 +11,5 @@ This includes anomalies and known defects as well as next steps. The list doesn'
 * field of vision
 * behaviours as finite state-machines
 * basic non-living objects
-* basic plants (inheriting from Life)
 * inventory system
 * interactions between instances Life
