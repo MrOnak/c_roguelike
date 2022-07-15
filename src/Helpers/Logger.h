@@ -30,6 +30,11 @@ class Logger {
     static bool setFile(std::string filepath, int level);
     static void setLevel(int level);
     static void log(std::string message, int level);
+    static void debug(std::string message);
+    static void info(std::string message);
+    static void warn(std::string message);
+    static void error(std::string message);
+    static void fatal(std::string message);
 };
 
 #endif

@@ -54,3 +54,9 @@ void Logger::log(std::string message, int level) {
     writer << getGameTime() << " (" << strLevels[level] << ")" << ": " << message << std::endl;
   }
 }
+
+void Logger::debug(std::string message) {log(message, LVL_DEBUG);}
+void Logger::info(std::string message) {log(message, LVL_INFO);}
+void Logger::warn(std::string message) {log(message, LVL_WARN);}
+void Logger::error(std::string message) {log(message, LVL_ERROR);}
+void Logger::fatal(std::string message) {log(message, LVL_FATAL);}

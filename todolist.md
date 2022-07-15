@@ -3,7 +3,6 @@
 This includes anomalies and known defects as well as next steps. The list doesn't aim to be a roadmap nor does it aim for completeness. The purpose is to bridge over any longer implementation gaps.
 
 * improve Logger to accept snprintf() raw parameters
-* improve Logger to have dedicated logging functions per loglevel, hence shrouding the constants
 * extend map walkability to take into account objects and lifeforms like trees that aren't passable
 * use a config file
 * test generic Makefile directives

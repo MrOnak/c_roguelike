@@ -44,7 +44,7 @@ void Timekeeper::progressTime() {
   distributeEnergy(1.0f);
   // reset position counter
   pos = *ObjectStore::getLife();
-  Logger::log("game time has stepped forward", Logger::LVL_DEBUG);
+  Logger::debug("game time has stepped forward");
 }
 
 void Timekeeper::distributeEnergy(float e) {

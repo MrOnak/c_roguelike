@@ -31,15 +31,15 @@ void initNCurses() {
   init_pair(1, COLOR_WHITE, COLOR_BLACK);
   init_pair(2, COLOR_GREEN, COLOR_GREEN);
   init_pair(3, COLOR_WHITE, COLOR_WHITE);
-  Logger::log("ncurses initialized", Logger::LVL_DEBUG);
+  Logger::debug("ncurses initialized");
 }
 
 void initGameEnvironment() {
   mapWindow = new MapWindow(0, 0, 62, 22);
   // generate and distribute map data - includes objects and creatures
-  Logger::log("generating map...", Logger::LVL_DEBUG);
+  Logger::debug("generating map...");
   mapGenerator.generate(50, 17);
-  Logger::log("game environment is set up", Logger::LVL_DEBUG);
+  Logger::debug("game environment is set up");
 }
 
 int main(int argc, char *argv[]) {
@@ -49,8 +49,8 @@ int main(int argc, char *argv[]) {
   std::string path = std::filesystem::canonical(argv[0]).parent_path();
   std::string logfile = path + "/log/roguelike.log";
   Logger::setFile(logfile, Logger::LVL_DEBUG);
-  Logger::log("-----------------", Logger::LVL_INFO);
-  Logger::log("initializing game", Logger::LVL_INFO);
+  Logger::info("-----------------");
+  Logger::info("initializing game");
 
   initNCurses();
   initGameEnvironment();
