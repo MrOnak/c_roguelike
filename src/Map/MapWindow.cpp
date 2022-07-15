@@ -69,10 +69,25 @@ void MapWindow::drawBorder() {
 
 void MapWindow::calculateVisMapOffset() {
   position playerPos = ObjectStore::getPlayer()->getPos();
+  position actualMapSize;
 
-  // calculate offset so that player position is in the center of the usable space
-  visMapOffset.x = playerPos.x - usableWinHalfSize.x;
-  visMapOffset.y = playerPos.y - usableWinHalfSize.y;
+  actualMapSize.x = TileStore::getWidth();
+  actualMapSize.y = TileStore::getHeight();
+
+  if (actualMapSize.x < usableWinSize.x) {    visMapOffset.x = (
+    actualMapSize.x - usableWinSize.x) / 2;
+  } else if (actualMapSize.x >= usableWinSize.x) {
+    visMapOffset.x = std::min(actualMapSize.x - usableWinSize.x,
+                      std::max(0, playerPos.x - usableWinHalfSize.x));
+  }
+
+  if (actualMapSize.y < usableWinSize.y) {
+    visMapOffset.y = (actualMapSize.y - usableWinSize.y) / 2;
+  } else if (actualMapSize.y >= usableWinSize.y) {
+    visMapOffset.y = std::min(actualMapSize.y - usableWinSize.y,
+                      std::max(0, playerPos.y - usableWinHalfSize.y));
+  }
+
 }
 
 bool MapWindow::isVisible(position pos) {
@@ -118,13 +133,20 @@ void MapWindow::drawLife() {
   do {
     pos = current->being->getPos();
 
-    //if (isVisible(pos)) {
+    if (isVisible(pos)) {
       mvwaddch(mapWin,
         pos.y + winMapOffset.y - visMapOffset.y,
         pos.x + winMapOffset.x - visMapOffset.x,
         current->being->getSymbol());
-    //}
+    }
 
     current = current->next;
   } while (current != NULL);
+
+  // re-draw Player so that its always visible
+  pos = ObjectStore::getPlayer()->getPos();
+  mvwaddch(mapWin,
+    pos.y + winMapOffset.y - visMapOffset.y,
+    pos.x + winMapOffset.x - visMapOffset.x,
+    ObjectStore::getPlayer()->getSymbol());
 }
