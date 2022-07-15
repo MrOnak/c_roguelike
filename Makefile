@@ -74,14 +74,18 @@ mapwindow.o: tilestore.o objectstore.o
 
 # tests
 tests: test_logging test_time_raw test_time_integrated
-test_logging: logger.o
-	$(CC) $(CFLAGS) -o $(TEST_DIR)logging $(BUILD_DIR)logger.o $(TEST_DIR)logging.cpp $(CLIBS)
+test_logging: logger.o timekeeper.o objectstore.o tilestore.o generator.o
+	$(CC) $(CFLAGS) -o $(TEST_DIR)logging \
+		$(BUILD_DIR)logger.o $(BUILD_DIR)timekeeper.o $(BUILD_DIR)objectstore.o $(BUILD_DIR)tilestore.o \
+		$(BUILD_DIR)livingbeings.o $(BUILD_DIR)life.o $(BUILD_DIR)gameobject.o \
+		$(BUILD_DIR)generator.o \
+		$(TEST_DIR)logging.cpp $(CLIBS)
 test_time_raw:
 	$(CC) $(CFLAGS) -o $(TEST_DIR)time $(TEST_DIR)time.cpp $(CLIBS)
-test_time_integrated: frog.o mouse.o tilestore.o timekeeper.o
+test_time_integrated: frog.o mouse.o tilestore.o timekeeper.o logger.o
 	$(CC) $(CFLAGS) -o $(TEST_DIR)time2 \
 		$(BUILD_DIR)objectstore.o $(BUILD_DIR)livingbeings.o \
 		$(BUILD_DIR)gameobject.o $(BUILD_DIR)life.o $(BUILD_DIR)critter.o \
 		$(BUILD_DIR)player.o $(BUILD_DIR)frog.o $(BUILD_DIR)mouse.o \
-		$(BUILD_DIR)generator.o $(BUILD_DIR)tilestore.o $(BUILD_DIR)timekeeper.o \
+		$(BUILD_DIR)generator.o $(BUILD_DIR)tilestore.o $(BUILD_DIR)timekeeper.o $(BUILD_DIR)logger.o \
 		$(TEST_DIR)time_integrated.cpp $(CLIBS)
